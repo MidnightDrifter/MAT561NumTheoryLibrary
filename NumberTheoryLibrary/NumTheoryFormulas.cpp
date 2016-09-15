@@ -1,5 +1,8 @@
 #include "NumTheoryFormulas.h"
 
+
+
+
 std::vector<std::vector<long>> EuclideanAlgorithm(long a, long b)
 {
 	std::vector<std::vector<long>> output = std::vector<std::vector<long>>();
@@ -28,8 +31,8 @@ std::vector<std::vector<long>> EuclideanAlgorithm(long a, long b)
 	for (int i = 1; (bigger != 0 && smaller != 0); i++)
 	{
 		int t = bigger;
-		bigger = std::max(t - quotient*smaller, smaller);
-		smaller = std::min(t - quotient*smaller, smaller);
+		bigger =  smaller;
+		smaller = t - quotient*smaller;
 		quotient = bigger / smaller;
 		remainder = bigger % smaller;
 
@@ -47,6 +50,15 @@ std::vector<std::vector<long>> EuclideanAlgorithm(long a, long b)
 	//If we get here, either bigger OR smaller = 0
 	//Find the linear combination such that ax + by = GCD via looping waaaaay back through the matrix somehow, gonna be ugly af
 	//Push back that linear comb. + GCD
+	int a = 0;
+	int b = a;
+
+	for (auto i = output.end(); i != output.begin(); i--)
+	{
+
+	}
+
+
 	return output;
 
 }
