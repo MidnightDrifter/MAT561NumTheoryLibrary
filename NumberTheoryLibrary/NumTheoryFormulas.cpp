@@ -72,7 +72,7 @@ std::vector<std::vector<long>> NumTheoryFormulas::EuclideanAlgorithm(long a, lon
 	long curr[2] = { 1l,0l };
 	long next[2] = { 0l,1l };
 	long temp[2] = { 0l,0l };
-	for (auto i = output.begin(); ((next[0]*a + next[1]*b) != gcd); i++)
+	for (auto i = output.begin(); i!=output.end(); i++)
 	{
 		temp[0] = next[0];
 		temp[1] = next[1];
@@ -100,12 +100,15 @@ std::vector<std::vector<long>> NumTheoryFormulas::EuclideanAlgorithm(long a, lon
 
 	for (auto i = output.begin(); i != output.end(); i++)
 	{
-		for (int j = 0; j < 5; j++)
+		if (i != output.end() - 2)
 		{
-			printf("%li", (*i).at(j));
-			printf("%s", "   ");
+			for (int j = 0; j < 5; j++)
+			{
+				printf("%li", (*i).at(j));
+				printf("%s", "   ");
+			}
+			printf("\n");
 		}
-		printf("\n");
 	}
 	
 	return output;
