@@ -2,8 +2,10 @@
 NumTheoryFormulas;
 int main(int argc, char *argv[])
 {
-	long x = 100;
-	long y = 45;
+	long x = 546545;
+	long y = 54500;
 
 	NumTheoryFormulas::EuclideanAlgorithm(x, y);
+
+	
 }

@@ -8,5 +8,7 @@ public:
 	~NumTheoryFormulas();
 
 	static std::vector<std::vector<long>> EuclideanAlgorithm(long a, long b);
+	static long ModExponent(long base, long exp, long mod);
+
 };
 
