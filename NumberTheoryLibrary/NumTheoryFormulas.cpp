@@ -3,18 +3,18 @@
 
 
 
-std::vector<std::vector<long long>> NumTheoryFormulas::EuclideanAlgorithm(long long a, long long b)
+std::vector<std::vector<NumTheoryFormulas::SUPERLONG>> NumTheoryFormulas::EuclideanAlgorithm(SUPERLONG a, SUPERLONG b)
 {
-	std::vector<std::vector<long long>> output = std::vector<std::vector<long long>>();
+	std::vector<std::vector<SUPERLONG>> output = std::vector<std::vector<SUPERLONG>>();
 	//matrix format:  bigger, quotient, smaller, remainder, GCD
 	
-	long long bigger = std::max(a, b);
-	long long smaller = std::min(a, b);
+	SUPERLONG bigger = std::max(a, b);
+	SUPERLONG smaller = std::min(a, b);
 
-	long long quotient = bigger / smaller;
-	long long remainder = bigger % smaller;
+	SUPERLONG quotient = bigger / smaller;
+	SUPERLONG remainder = bigger % smaller;
 	
-	output.push_back(std::vector<long long>());
+	output.push_back(std::vector<SUPERLONG>());
 	output.at(0).push_back(bigger);
 	output.at(0).push_back(quotient);
 	output.at(0).push_back(smaller);
@@ -28,10 +28,10 @@ std::vector<std::vector<long long>> NumTheoryFormulas::EuclideanAlgorithm(long l
 		//Push back that linear comb. + GCD
 		return output;
 	}
-	long long gcd = 0;
+	SUPERLONG gcd = 0;
 	for (int i = 1; (bigger != 0 && smaller != 0); i++)
 	{
-		long long t = bigger;
+		SUPERLONG t = bigger;
 		bigger =  smaller;
 		smaller = t - quotient*smaller;
 
@@ -48,7 +48,7 @@ std::vector<std::vector<long long>> NumTheoryFormulas::EuclideanAlgorithm(long l
 		}
 		
 
-		output.push_back(std::vector<long long>());
+		output.push_back(std::vector<SUPERLONG>());
 		output.at(i).push_back(bigger);
 		output.at(i).push_back(quotient);
 		output.at(i).push_back(smaller);
@@ -69,9 +69,9 @@ std::vector<std::vector<long long>> NumTheoryFormulas::EuclideanAlgorithm(long l
 	//	gcd = (*output.end()).at(2);
 	//}
 	
-	long long curr[2] = { 1l,0l };
-	long long next[2] = { 0l,1l };
-	long long temp[2] = { 0l,0l };
+	SUPERLONG curr[2] = { 1l,0l };
+	SUPERLONG next[2] = { 0l,1l };
+	SUPERLONG temp[2] = { 0l,0l };
 	for (auto i = output.begin(); i!=output.end(); i++)
 	{
 		temp[0] = next[0];
@@ -87,7 +87,7 @@ std::vector<std::vector<long long>> NumTheoryFormulas::EuclideanAlgorithm(long l
 
 	}
 	
-	output.push_back(std::vector<long long>());
+	output.push_back(std::vector<SUPERLONG>());
 	output.at(output.size()-1).push_back(std::max(a, b));
 	output.at(output.size()-1).push_back(next[0]);
 	output.at(output.size()-1).push_back(std::min(a, b));
@@ -116,44 +116,58 @@ std::vector<std::vector<long long>> NumTheoryFormulas::EuclideanAlgorithm(long l
 }
 
 
-long long NumTheoryFormulas::ModExponent(long long base, long long exp, long long mod)
+NumTheoryFormulas::SUPERLONG NumTheoryFormulas::ModExponent(SUPERLONG base, SUPERLONG exp, SUPERLONG mod)
 {
-	long long m = 1;
-long	long b = base % mod;
-	long e = exp;
-	
-	do
+	SUPERLONG m = 1;
+SUPERLONG b = base % mod;
+	SUPERLONG e = exp;
+	if(mod ==1)// exp ==0)
+	{
+		return 0;
+	}
+
+	else if (exp == 0)
+	{
+		return 1;
+	}
+	while(e>0)
 	{
 		
 		if (e % 2 == 1)
 		{
-			m *= (b%mod);
+			//m *= (b%mod);
+			m*=b;
+			m %= mod;
 		}
 		
-		e >>= 1;
-		b *= (b%mod);
-	} while (e > 0);
+		e /= 2;
+		b *= (b);
+		b%=mod;
+		//b = b%mod;
+		//b %= mod;
+		//b *= (b%mod);
+	}
 	return m;
 }
 
-long long NumTheoryFormulas::LinearCongruenceSolver(long long a, long long b, long long mod)
+NumTheoryFormulas::SUPERLONG NumTheoryFormulas::MultInverse(SUPERLONG a, SUPERLONG mod)
 {
-	long long xCoef = a%mod;
+	SUPERLONG xCoef = a%mod;
 	//long myB= b%mod;
-	long long myMod = mod;
+	SUPERLONG myMod = mod;
 
 	//Euclidean algorithm, return the coef of b in the final row
 
-	std::vector<std::vector<long long>> output = std::vector<std::vector<long long>>();
+	std::vector<std::vector<SUPERLONG>> output = std::vector<std::vector<SUPERLONG>>();
 	//matrix format:  bigger, quotient, smaller, remainder, GCD
 
-	long long bigger = std::max(xCoef, mod);
-	long long smaller = std::min(xCoef, mod);
+	SUPERLONG bigger = std::max(xCoef, mod);
+	SUPERLONG smaller = std::min(xCoef, mod);
 
 	long  long quotient = bigger / smaller;
-	long long remainder = bigger % smaller;
+	SUPERLONG remainder = bigger % smaller;
 
-	output.push_back(std::vector<long long>());
+	output.push_back(std::vector<SUPERLONG>());
 	output.at(0).push_back(bigger);
 	output.at(0).push_back(quotient);
 	output.at(0).push_back(smaller);
@@ -167,10 +181,10 @@ long long NumTheoryFormulas::LinearCongruenceSolver(long long a, long long b, lo
 		//Push back that linear comb. + GCD
 		return -1;
 	}
-	long long gcd = 0;
+	SUPERLONG gcd = 0;
 	for (int i = 1; (bigger != 0 && smaller != 0); i++)
 	{
-		long long t = bigger;
+		SUPERLONG t = bigger;
 		bigger = smaller;
 		smaller = t - quotient*smaller;
 
@@ -187,7 +201,7 @@ long long NumTheoryFormulas::LinearCongruenceSolver(long long a, long long b, lo
 		}
 
 
-		output.push_back(std::vector<long long>());
+		output.push_back(std::vector<SUPERLONG>());
 		output.at(i).push_back(bigger);
 		output.at(i).push_back(quotient);
 		output.at(i).push_back(smaller);
@@ -208,9 +222,9 @@ long long NumTheoryFormulas::LinearCongruenceSolver(long long a, long long b, lo
 	//	gcd = (*output.end()).at(2);
 	//}
 
-	long long curr[2] = { 1l,0l };
-	long long next[2] = { 0l,1l };
-	long long temp[2] = { 0l,0l };
+	SUPERLONG curr[2] = { 1l,0l };
+	SUPERLONG next[2] = { 0l,1l };
+	SUPERLONG temp[2] = { 0l,0l };
 	for (auto i = output.begin(); i != output.end(); i++)
 	{
 		temp[0] = next[0];
@@ -225,7 +239,9 @@ long long NumTheoryFormulas::LinearCongruenceSolver(long long a, long long b, lo
 
 
 	}
-	if (b % gcd == 0)
+
+	return next[1];
+	/*if (b % gcd == 0)
 	{
 		return next[1];
 	}
@@ -235,10 +251,63 @@ long long NumTheoryFormulas::LinearCongruenceSolver(long long a, long long b, lo
 		//No solutions
 		return -1;
 	}
-
+	*/
 
 
 }
+
+NumTheoryFormulas::SUPERLONG NumTheoryFormulas::CRT( SUPERLONG numEqns, SUPERLONG** eqns)
+{
+	SUPERLONG bigM = eqns[0][1];
+	SUPERLONG gcd = this->GCD(bigM, eqns[1][1]);
+	bigM *= eqns[1][1];
+	for (int i = 2; i < numEqns; i++)
+	{
+		if (gcd != 1)
+		{
+			//No solution, abort
+			return -1;
+		}
+
+		gcd = this->GCD(gcd, eqns[0][i]);
+	}
+
+
+
+	
+	//SUPERLONG* mArray = new SUPERLONG(sizeof(SUPERLONG) * numEqns);
+	//mArray[0] = bigM;
+	for (int i = 1; i < numEqns; i++)
+	{
+		//mArray[i] = eqns[i][1];
+		bigM *= eqns[i][1];
+		
+	}
+
+	SUPERLONG out = 0;
+
+	for (int i = 0; i < numEqns; i++)
+	{
+		
+		out += ((this->MultInverse(bigM / eqns[i][0], eqns[i][0])* eqns[i][1]) % bigM);
+	}
+
+	return out % bigM;
+
+}
+
+NumTheoryFormulas::SUPERLONG NumTheoryFormulas::GCD(SUPERLONG a, SUPERLONG b)
+{
+	
+		while (b != 0) {
+			SUPERLONG r = a % b;
+			a = b;
+			b = r;
+		}
+		return a;
+	
+}
+
 
 NumTheoryFormulas::NumTheoryFormulas()
 {

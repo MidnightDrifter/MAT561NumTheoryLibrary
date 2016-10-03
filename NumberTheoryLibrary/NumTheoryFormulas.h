@@ -5,13 +5,18 @@
 class NumTheoryFormulas
 {
 public:
+	typedef  unsigned long long SUPERLONG;
 	NumTheoryFormulas();
 	~NumTheoryFormulas();
 
-	static std::vector<std::vector<long long>> EuclideanAlgorithm(long long a, long long b);
+	 std::vector<std::vector<SUPERLONG>> EuclideanAlgorithm(SUPERLONG a, SUPERLONG b);
 	//static
-		long long ModExponent(long long base, long long exp, long long mod);
-	static long long LinearCongruenceSolver(long long a, long long b, long long mod);
+		SUPERLONG ModExponent(SUPERLONG base, SUPERLONG exp, SUPERLONG mod);
+	 SUPERLONG MultInverse(SUPERLONG a, SUPERLONG mod);
+	 SUPERLONG CRT(SUPERLONG numEquations, SUPERLONG** equations);
+
+	 SUPERLONG GCD(SUPERLONG a, SUPERLONG b);
+
 	//Actually just get the multinv(a,n) -> return x such that ax = 1 mod n
 
 	//Next program:  CRT--assume all coef of x are 1
