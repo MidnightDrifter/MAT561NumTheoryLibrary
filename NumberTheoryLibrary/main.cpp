@@ -9,10 +9,12 @@ int main(int argc, char *argv[])
 	//NumTheoryFormulas::EuclideanAlgorithm(x, y);
 
 	int answer = 52;
-
-	if (NumTheoryFormulas::ModExponent(11, 13, 53) != answer)
+	NumTheoryFormulas solver = NumTheoryFormulas();
+	answer = solver.ModExponent(25356575, 12345678987654321, 112233445566778899);
+	answer *= 1;
+	//if (NumTheoryFormulas::ModExponent(25356575l,12345678987654321l, 112233445566778899l) != answer)
 	{
-		return -1;
+	//	return -1;
 	}
 
 	return 0;
