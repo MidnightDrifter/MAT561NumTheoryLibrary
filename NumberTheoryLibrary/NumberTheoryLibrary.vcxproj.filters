@@ -30,9 +30,6 @@
     <ClInclude Include="Headers\gmp.h">
       <Filter>GMP\Header</Filter>
     </ClInclude>
-    <ClInclude Include="Headers\gmp-mparam.h">
-      <Filter>GMP\Header</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="NumTheoryFormulas.cpp">
@@ -46,16 +43,5 @@
     <Library Include="LibraryFiles\libgmp.a">
       <Filter>GMP\LibraryFiles</Filter>
     </Library>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="LibraryFiles\libgmp.la">
-      <Filter>GMP\LibraryFiles</Filter>
-    </None>
-    <None Include="LibraryFiles\libgmp.lai">
-      <Filter>GMP\LibraryFiles</Filter>
-    </None>
-    <None Include="LibraryFiles\libgmp.libcmd">
-      <Filter>GMP\LibraryFiles</Filter>
-    </None>
   </ItemGroup>
 </Project>

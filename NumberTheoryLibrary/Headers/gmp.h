@@ -27,6 +27,10 @@ for more details.
 You should have received copies of the GNU General Public License and the
 GNU Lesser General Public License along with the GNU MP Library.  If not,
 see https://www.gnu.org/licenses/.  */
+#ifdef _MSC_VER
+#  pragma warning( disable : 4146 )
+#endif
+
 
 #ifndef __GMP_H__
 
