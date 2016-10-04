@@ -1,6 +1,8 @@
 #pragma once
 #include <vector>
 #include <algorithm>
+#include <gmp.h>
+#include <gmp-mparam.h>
 class NumTheoryFormulas
 {
 public:
