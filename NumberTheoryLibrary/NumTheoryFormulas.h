@@ -2,6 +2,8 @@
 #include <vector>
 #include <algorithm>
 //#include <experimental>
+#include <gmpxx.h>
+
 class NumTheoryFormulas
 {
 public:

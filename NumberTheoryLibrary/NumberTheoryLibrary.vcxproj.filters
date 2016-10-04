@@ -13,10 +13,25 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="GMP">
+      <UniqueIdentifier>{6ee3031a-ed9b-4f5c-b2ba-991c9e62c766}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GMP\Header">
+      <UniqueIdentifier>{9b04049b-a293-4e2c-8f8f-f0678d74ac89}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GMP\LibraryFiles">
+      <UniqueIdentifier>{6607ed9e-c515-436b-b9a0-ba5153a8c0ac}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="NumTheoryFormulas.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Headers\gmp.h">
+      <Filter>GMP\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Headers\gmpxx.h">
+      <Filter>GMP\Header</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -26,5 +41,10 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="LibraryFiles\libgmp.a">
+      <Filter>GMP\LibraryFiles</Filter>
+    </Library>
   </ItemGroup>
 </Project>

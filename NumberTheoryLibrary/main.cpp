@@ -1,5 +1,7 @@
 #include "NumTheoryFormulas.h"
 #include <math.h>
+#include <gmp.h>
+
 NumTheoryFormulas;
 int main(int argc, char *argv[])
 {
