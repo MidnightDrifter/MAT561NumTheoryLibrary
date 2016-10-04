@@ -30,6 +30,9 @@
     <ClInclude Include="Headers\gmp.h">
       <Filter>GMP\Header</Filter>
     </ClInclude>
+    <ClInclude Include="Headers\gmpxx.h">
+      <Filter>GMP\Header</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="NumTheoryFormulas.cpp">

@@ -2,7 +2,7 @@
 #include <vector>
 #include <algorithm>
 //#include <experimental>
-#include <gmp.h>
+#include <gmpxx.h>
 
 class NumTheoryFormulas
 {

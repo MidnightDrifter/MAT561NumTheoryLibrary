@@ -119,6 +119,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Headers\gmp.h" />
+    <ClInclude Include="Headers\gmpxx.h" />
     <ClInclude Include="NumTheoryFormulas.h" />
   </ItemGroup>
   <ItemGroup>
