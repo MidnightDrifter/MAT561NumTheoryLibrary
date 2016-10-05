@@ -86,7 +86,14 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
+      <AdditionalUsingDirectories>
+      </AdditionalUsingDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)/Headers</AdditionalIncludeDirectories>
     </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>$(ProjectDir)/LibraryFiles</AdditionalLibraryDirectories>
+      <AdditionalDependencies>libgmp.dll.a;libgmp.a;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -128,6 +135,11 @@
   </ItemGroup>
   <ItemGroup>
     <Library Include="LibraryFiles\libgmp.a" />
+    <Library Include="LibraryFiles\libgmp.dll.a" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="LibraryFiles\cyggmp-10.dll" />
+    <None Include="LibraryFiles\libgmp-3.dll.def" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -10,11 +10,20 @@ int main(int argc, char *argv[])
 	// Class  #s :  349993, 380247
 	//NumTheoryFormulas::EuclideanAlgorithm(x, y);
 
-	unsigned long long answer = 52;
+	//mpz_class answer = 52;
+	int answer = 1;
 	NumTheoryFormulas solver = NumTheoryFormulas();
-	answer = solver.ModExponent(25356575, 12345678987654321, 112233445566778899);
-	answer *= 1;
-	//if (NumTheoryFormulas::ModExponent(25356575l,12345678987654321l, 112233445566778899l) != answer)
+
+	mpz_class base;
+	mpz_class exp; 
+	mpz_class mod;
+	base = 25356575;
+	exp = "123345678987654321";
+	mod = "112233445566778899";
+
+	//answer = solver.ModExponent(base, exp , mod);
+	//answer *= 1;
+	if (solver.ModExponent(base, exp, mod) != answer)
 	{
 	//	return -1;
 	}

@@ -46,5 +46,16 @@
     <Library Include="LibraryFiles\libgmp.a">
       <Filter>GMP\LibraryFiles</Filter>
     </Library>
+    <Library Include="LibraryFiles\libgmp.dll.a">
+      <Filter>GMP\LibraryFiles</Filter>
+    </Library>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="LibraryFiles\cyggmp-10.dll">
+      <Filter>GMP\LibraryFiles</Filter>
+    </None>
+    <None Include="LibraryFiles\libgmp-3.dll.def">
+      <Filter>GMP\LibraryFiles</Filter>
+    </None>
   </ItemGroup>
 </Project>

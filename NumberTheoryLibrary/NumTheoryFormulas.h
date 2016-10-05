@@ -7,7 +7,7 @@
 class NumTheoryFormulas
 {
 public:
-	typedef  unsigned long long SUPERLONG;
+	typedef mpz_class SUPERLONG;   //unsigned long long SUPERLONG;  
 	NumTheoryFormulas();
 	~NumTheoryFormulas();
 

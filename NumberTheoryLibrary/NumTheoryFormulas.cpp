@@ -19,7 +19,7 @@ std::vector<std::vector<NumTheoryFormulas::SUPERLONG>> NumTheoryFormulas::Euclid
 	output.at(0).push_back(quotient);
 	output.at(0).push_back(smaller);
 	output.at(0).push_back(remainder);
-	output.at(0).push_back(0l);
+	output.at(0).push_back(0);
 
 	if (a == 0 || b == 0)
 	{
@@ -53,7 +53,7 @@ std::vector<std::vector<NumTheoryFormulas::SUPERLONG>> NumTheoryFormulas::Euclid
 		output.at(i).push_back(quotient);
 		output.at(i).push_back(smaller);
 		output.at(i).push_back(remainder);
-		output.at(i).push_back(0l);
+		output.at(i).push_back(0);
 
 
 
@@ -69,9 +69,9 @@ std::vector<std::vector<NumTheoryFormulas::SUPERLONG>> NumTheoryFormulas::Euclid
 	//	gcd = (*output.end()).at(2);
 	//}
 	
-	SUPERLONG curr[2] = { 1l,0l };
-	SUPERLONG next[2] = { 0l,1l };
-	SUPERLONG temp[2] = { 0l,0l };
+	SUPERLONG curr[2] = { 1,0 };
+	SUPERLONG next[2] = { 0,1 };
+	SUPERLONG temp[2] = { 0,0 };
 	for (auto i = output.begin(); i!=output.end(); i++)
 	{
 		temp[0] = next[0];
@@ -136,12 +136,12 @@ SUPERLONG b = base % mod;
 		if (e % 2 == 1)
 		{
 			//m *= (b%mod);
-			m*=b;
+			m*=(b%mod);
 			m %= mod;
 		}
 		
 		e /= 2;
-		b *= (b);
+		b *= (b%mod);
 		b%=mod;
 		//b = b%mod;
 		//b %= mod;
@@ -164,7 +164,7 @@ NumTheoryFormulas::SUPERLONG NumTheoryFormulas::MultInverse(SUPERLONG a, SUPERLO
 	SUPERLONG bigger = std::max(xCoef, mod);
 	SUPERLONG smaller = std::min(xCoef, mod);
 
-	long  long quotient = bigger / smaller;
+	SUPERLONG quotient = bigger / smaller;
 	SUPERLONG remainder = bigger % smaller;
 
 	output.push_back(std::vector<SUPERLONG>());
@@ -172,7 +172,7 @@ NumTheoryFormulas::SUPERLONG NumTheoryFormulas::MultInverse(SUPERLONG a, SUPERLO
 	output.at(0).push_back(quotient);
 	output.at(0).push_back(smaller);
 	output.at(0).push_back(remainder);
-	output.at(0).push_back(0l);
+	output.at(0).push_back(0);
 
 	if (mod == 0 || xCoef == 0)
 	{
@@ -222,9 +222,9 @@ NumTheoryFormulas::SUPERLONG NumTheoryFormulas::MultInverse(SUPERLONG a, SUPERLO
 	//	gcd = (*output.end()).at(2);
 	//}
 
-	SUPERLONG curr[2] = { 1l,0l };
-	SUPERLONG next[2] = { 0l,1l };
-	SUPERLONG temp[2] = { 0l,0l };
+	SUPERLONG curr[2] = { 1,0 };
+	SUPERLONG next[2] = { 0,1 };
+	SUPERLONG temp[2] = { 0,0 };
 	for (auto i = output.begin(); i != output.end(); i++)
 	{
 		temp[0] = next[0];
