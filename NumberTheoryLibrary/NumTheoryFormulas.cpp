@@ -1,5 +1,8 @@
 #include "NumTheoryFormulas.h"
-
+static const BigInt::Rossi RossiZero(0);
+static const BigInt::Rossi RossiOne(1); 
+static const BigInt::Rossi RossiTwo(2);
+static const BigInt::Rossi RossiNegOne(-1);
 
 
 
@@ -19,23 +22,23 @@ std::vector<std::vector<NumTheoryFormulas::SUPERLONG>> NumTheoryFormulas::Euclid
 	output.at(0).push_back(quotient);
 	output.at(0).push_back(smaller);
 	output.at(0).push_back(remainder);
-	output.at(0).push_back(0);
+	output.at(0).push_back(RossiZero);
 
-	if (a == 0 || b == 0)
+	if (a == RossiZero || b == RossiZero)
 	{
 		//
 		//Find the linear combination such that ax + by = GCD
 		//Push back that linear comb. + GCD
 		return output;
 	}
-	SUPERLONG gcd = 0;
-	for (int i = 1; (bigger != 0 && smaller != 0); i++)
+	SUPERLONG gcd = RossiZero;
+	for (int i = 1; (bigger != RossiZero && smaller != RossiZero); i++)
 	{
 		SUPERLONG t = bigger;
 		bigger =  smaller;
 		smaller = t - quotient*smaller;
 
-		if (smaller != 0)
+		if (smaller != RossiZero)
 		{
 			quotient = bigger / smaller;
 			remainder = bigger % smaller;
@@ -43,7 +46,7 @@ std::vector<std::vector<NumTheoryFormulas::SUPERLONG>> NumTheoryFormulas::Euclid
 
 		else
 		{
-			remainder = 0;
+			remainder = RossiZero;
 			gcd = bigger;
 		}
 		
@@ -53,25 +56,25 @@ std::vector<std::vector<NumTheoryFormulas::SUPERLONG>> NumTheoryFormulas::Euclid
 		output.at(i).push_back(quotient);
 		output.at(i).push_back(smaller);
 		output.at(i).push_back(remainder);
-		output.at(i).push_back(0);
+		output.at(i).push_back(RossiZero);
 
 
 
 	}
 
-	//If we get here, either bigger OR smaller = 0, GCD is the greater of the two
+	//If we get here, either bigger OR smaller = RossiZero, GCD is the greater of the two
 	//Find the linear combination such that ax + by = GCD via looping waaaaay back through the matrix somehow, gonna be ugly af
 	//Push back that linear comb. + GCD
 
-	//long gcd = (*output.end()).at(0);
-	//if (gcd == 0)
+	//long gcd = (*output.end()).at(RossiZero);
+	//if (gcd == RossiZero)
 	//{
 	//	gcd = (*output.end()).at(2);
 	//}
 	
-	SUPERLONG curr[2] = { 1,0 };
-	SUPERLONG next[2] = { 0,1 };
-	SUPERLONG temp[2] = { 0,0 };
+	SUPERLONG curr[2] = { RossiOne,RossiZero };
+	SUPERLONG next[2] = { RossiZero,RossiOne };
+	SUPERLONG temp[2] = { RossiZero,RossiZero };
 	for (auto i = output.begin(); i!=output.end(); i++)
 	{
 		temp[0] = next[0];
@@ -118,31 +121,31 @@ std::vector<std::vector<NumTheoryFormulas::SUPERLONG>> NumTheoryFormulas::Euclid
 
 NumTheoryFormulas::SUPERLONG NumTheoryFormulas::ModExponent(SUPERLONG base, SUPERLONG exp, SUPERLONG mod)
 {
-	SUPERLONG m = 1;
+	SUPERLONG m = RossiOne;
 SUPERLONG b = base % mod;
 	SUPERLONG e = exp;
-	if(mod ==1)// exp ==0)
+	if(mod ==RossiOne)// exp ==RossiZero)
 	{
-		return 0;
+		return RossiZero;
 	}
 
-	else if (exp == 0)
+	else if (exp == RossiZero)
 	{
-		return 1;
+		return RossiOne;
 	}
-	while(e>0)
+	while(e>RossiZero)
 	{
 		
-		if (e % 2 == 1)
+		if (e % RossiTwo == RossiOne)
 		{
 			//m *= (b%mod);
-			m*=(b%mod);
-			m %= mod;
+			m = m*(b%mod);
+			m = m% mod;
 		}
 		
-		e /= 2;
-		b *= (b%mod);
-		b%=mod;
+		e = e / RossiTwo; 
+		b =b*b;
+		b = b%mod;
 		//b = b%mod;
 		//b %= mod;
 		//b *= (b%mod);
@@ -172,23 +175,23 @@ NumTheoryFormulas::SUPERLONG NumTheoryFormulas::MultInverse(SUPERLONG a, SUPERLO
 	output.at(0).push_back(quotient);
 	output.at(0).push_back(smaller);
 	output.at(0).push_back(remainder);
-	output.at(0).push_back(0);
+	output.at(0).push_back(RossiZero);
 
-	if (mod == 0 || xCoef == 0)
+	if (mod == RossiZero || xCoef == RossiZero)
 	{
 		//
 		//Find the linear combination such that ax + by = GCD
 		//Push back that linear comb. + GCD
-		return -1;
+		return RossiNegOne;
 	}
-	SUPERLONG gcd = 0;
-	for (int i = 1; (bigger != 0 && smaller != 0); i++)
+	SUPERLONG gcd = RossiZero;
+	for (int i = 1; (bigger != RossiZero && smaller != RossiZero); i++)
 	{
 		SUPERLONG t = bigger;
 		bigger = smaller;
 		smaller = t - quotient*smaller;
 
-		if (smaller != 0)
+		if (smaller != RossiZero)
 		{
 			quotient = bigger / smaller;
 			remainder = bigger % smaller;
@@ -196,7 +199,7 @@ NumTheoryFormulas::SUPERLONG NumTheoryFormulas::MultInverse(SUPERLONG a, SUPERLO
 
 		else
 		{
-			remainder = 0;
+			remainder = RossiZero;
 			gcd = bigger;
 		}
 
@@ -206,30 +209,29 @@ NumTheoryFormulas::SUPERLONG NumTheoryFormulas::MultInverse(SUPERLONG a, SUPERLO
 		output.at(i).push_back(quotient);
 		output.at(i).push_back(smaller);
 		output.at(i).push_back(remainder);
-		output.at(i).push_back(0l);
+		output.at(i).push_back(RossiZero);
 
 
 
 	}
 
-	//If we get here, either bigger OR smaller = 0, GCD is the greater of the two
+	//If we get here, either bigger OR smaller = RossiZero, GCD is the greater of the two
 	//Find the linear combination such that ax + by = GCD via looping waaaaay back through the matrix somehow, gonna be ugly af
 	//Push back that linear comb. + GCD
 
-	//long gcd = (*output.end()).at(0);
-	//if (gcd == 0)
+	//long gcd = (*output.end()).at(RossiZero);
+	//if (gcd == RossiZero)
 	//{
 	//	gcd = (*output.end()).at(2);
 	//}
 
-	SUPERLONG curr[2] = { 1,0 };
-	SUPERLONG next[2] = { 0,1 };
-	SUPERLONG temp[2] = { 0,0 };
+	SUPERLONG curr[2] = { RossiOne,RossiZero };
+	SUPERLONG next[2] = { RossiZero,RossiOne };
+	SUPERLONG temp[2] = { RossiZero,RossiZero };
 	for (auto i = output.begin(); i != output.end(); i++)
 	{
 		temp[0] = next[0];
 		temp[1] = next[1];
-
 		next[0] = curr[0] - (*i).at(1)*next[0];
 		next[1] = curr[1] - (*i).at(1)*next[1];
 
@@ -241,32 +243,32 @@ NumTheoryFormulas::SUPERLONG NumTheoryFormulas::MultInverse(SUPERLONG a, SUPERLO
 	}
 
 	return next[1];
-	/*if (b % gcd == 0)
+	/*if (b % gcd == RossiZero)
 	{
-		return next[1];
+		return next[RossiOne];
 	}
 
 	else
 	{
 		//No solutions
-		return -1;
+		return -RossiOne;
 	}
 	*/
 
 
 }
 
-NumTheoryFormulas::SUPERLONG NumTheoryFormulas::CRT( SUPERLONG numEqns, SUPERLONG** eqns)
+NumTheoryFormulas::SUPERLONG NumTheoryFormulas::CRT( int numEqns, SUPERLONG** eqns)
 {
 	SUPERLONG bigM = eqns[0][1];
 	SUPERLONG gcd = this->GCD(bigM, eqns[1][1]);
-	bigM *= eqns[1][1];
+	bigM = bigM* eqns[1][1];
 	for (int i = 2; i < numEqns; i++)
 	{
-		if (gcd != 1)
+		if (gcd != RossiOne)
 		{
 			//No solution, abort
-			return -1;
+			return RossiNegOne;
 		}
 
 		gcd = this->GCD(gcd, eqns[0][i]);
@@ -276,15 +278,15 @@ NumTheoryFormulas::SUPERLONG NumTheoryFormulas::CRT( SUPERLONG numEqns, SUPERLON
 
 	
 	//SUPERLONG* mArray = new SUPERLONG(sizeof(SUPERLONG) * numEqns);
-	//mArray[0] = bigM;
+	//mArray[RossiZero] = bigM;
 	for (int i = 1; i < numEqns; i++)
 	{
-		//mArray[i] = eqns[i][1];
-		bigM *= eqns[i][1];
+		//mArray[i] = eqns[i][RossiOne];
+		bigM =  bigM* eqns[i][1];
 		
 	}
 
-	SUPERLONG out = 0;
+	SUPERLONG out = RossiZero;
 
 	for (int i = 0; i < numEqns; i++)
 	{
@@ -299,7 +301,7 @@ NumTheoryFormulas::SUPERLONG NumTheoryFormulas::CRT( SUPERLONG numEqns, SUPERLON
 NumTheoryFormulas::SUPERLONG NumTheoryFormulas::GCD(SUPERLONG a, SUPERLONG b)
 {
 	
-		while (b != 0) {
+		while (b != RossiZero) {
 			SUPERLONG r = a % b;
 			a = b;
 			b = r;

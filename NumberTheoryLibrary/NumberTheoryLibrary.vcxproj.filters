@@ -24,38 +24,19 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="NumTheoryFormulas.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Headers\gmp.h">
-      <Filter>GMP\Header</Filter>
-    </ClInclude>
-    <ClInclude Include="Headers\gmpxx.h">
-      <Filter>GMP\Header</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
     <ClCompile Include="NumTheoryFormulas.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="bigInt.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Library Include="LibraryFiles\libgmp.a">
-      <Filter>GMP\LibraryFiles</Filter>
-    </Library>
-    <Library Include="LibraryFiles\libgmp.dll.a">
-      <Filter>GMP\LibraryFiles</Filter>
-    </Library>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="LibraryFiles\cyggmp-10.dll">
-      <Filter>GMP\LibraryFiles</Filter>
-    </None>
-    <None Include="LibraryFiles\libgmp-3.dll.def">
-      <Filter>GMP\LibraryFiles</Filter>
-    </None>
+    <ClInclude Include="NumTheoryFormulas.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
