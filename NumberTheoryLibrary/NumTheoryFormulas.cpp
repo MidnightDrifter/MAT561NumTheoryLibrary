@@ -242,7 +242,7 @@ NumTheoryFormulas::SUPERLONG NumTheoryFormulas::MultInverse(SUPERLONG a, SUPERLO
 
 	}
 
-	return next[1];
+	return next[1] % mod;
 	/*if (b % gcd == RossiZero)
 	{
 		return next[RossiOne];
