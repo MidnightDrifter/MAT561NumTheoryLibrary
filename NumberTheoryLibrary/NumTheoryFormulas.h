@@ -7,7 +7,7 @@
 class NumTheoryFormulas
 {
 public:
-	typedef mpz_class SUPERLONG;   //unsigned long long SUPERLONG;  
+	typedef unsigned long long SUPERLONG;  //mpz_class SUPERLONG;   //
 	NumTheoryFormulas();
 	~NumTheoryFormulas();
 
@@ -15,7 +15,7 @@ public:
 	//static
 		SUPERLONG ModExponent(SUPERLONG base, SUPERLONG exp, SUPERLONG mod);
 	 SUPERLONG MultInverse(SUPERLONG a, SUPERLONG mod);
-	 SUPERLONG CRT(SUPERLONG numEquations, SUPERLONG** equations);
+	 SUPERLONG CRT(SUPERLONG numEquations, SUPERLONG equations[][2]);
 
 	 SUPERLONG GCD(SUPERLONG a, SUPERLONG b);
 

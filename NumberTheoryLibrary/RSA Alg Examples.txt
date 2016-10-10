@@ -1,0 +1,30 @@
+	//Public N known, N = p*q, p,q are big primes
+	//Receiver knows e, some exponent
+	//send msg m, m ->  m^e mod N
+	//Receiver computes d such that m^ed = m mod N
+	// AKA  ed = phi(N) = (p-1)(q-1)
+	// 'e' is known so just get mult. inverse of ed = 1 mod (p-1)(q-1)
+	//Calculate m^ed mod N
+	//Message decrypted!
+	
+	
+	//Decrypt a msg
+	unsigned long long p = 658943;  //prime 1
+	unsigned long long q = 357389;  //prime 2
+	unsigned long long N = p * q;  //modulus
+	unsigned long long e = 2347;  //exponent
+	unsigned long long mE = 21511484;  //encrypted msg
+	unsigned long long d = solver.MultInverse(e, (p-1) * (q-1));  //mult inv. exponent
+
+	unsigned long long msg = solver.ModExponent(mE, d, N);  //decrypted msg
+
+	//encrypt msg
+	//msg is 'HELP' -> 08051216
+	//p = 658943, q =357389, e = 2347
+	unsigned long long encrypted = solver.ModExponent(8051216, 2347, 658943 * 357389);  //Encrypted msg
+	unsigned long long p1 = 658943;
+	unsigned long long q1 = 357389;
+	unsigned long long N1 = p1*q1;
+	unsigned long long e1 = 2347;
+	unsigned long long d1 = solver.MultInverse(e1, (p1 - 1)*(q1 - 1));
+	unsigned long long decrypted = solver.ModExponent(encrypted, d1, N1);

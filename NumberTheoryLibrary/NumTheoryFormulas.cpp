@@ -240,7 +240,7 @@ NumTheoryFormulas::SUPERLONG NumTheoryFormulas::MultInverse(SUPERLONG a, SUPERLO
 
 	}
 
-	return next[1];
+	return next[1] % mod;
 	/*if (b % gcd == 0)
 	{
 		return next[1];
@@ -256,7 +256,7 @@ NumTheoryFormulas::SUPERLONG NumTheoryFormulas::MultInverse(SUPERLONG a, SUPERLO
 
 }
 
-NumTheoryFormulas::SUPERLONG NumTheoryFormulas::CRT( SUPERLONG numEqns, SUPERLONG** eqns)
+NumTheoryFormulas::SUPERLONG NumTheoryFormulas::CRT( SUPERLONG numEqns, SUPERLONG eqns[][2])
 {
 	SUPERLONG bigM = eqns[0][1];
 	SUPERLONG gcd = this->GCD(bigM, eqns[1][1]);
