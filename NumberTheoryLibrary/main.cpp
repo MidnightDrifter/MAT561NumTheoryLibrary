@@ -5,6 +5,7 @@
 NumTheoryFormulas;
 int main(int argc, char *argv[])
 {
+	NumTheoryFormulas::SUPERLONG NegativeOne(-1);
 	long x = 349993;
 	long y = 380247;
 	// Class  #s :  349993, 380247
@@ -14,9 +15,9 @@ int main(int argc, char *argv[])
 	int answer = 1;
 	NumTheoryFormulas solver = NumTheoryFormulas();
 
-	solver.EuclideanAlgorithm(3215, 4761);
-	NumTheoryFormulas::SUPERLONG modexp = solver.ModExponent(3546789, 1254865, 13315791);
-	NumTheoryFormulas::SUPERLONG modinv = solver.MultInverse(357912486, 147852369) % 147852369;
+	solver.EuclideanAlgorithm(NumTheoryFormulas::SUPERLONG(3215), NumTheoryFormulas::SUPERLONG(4761));
+	NumTheoryFormulas::SUPERLONG modexp = solver.ModExponent(NumTheoryFormulas::SUPERLONG(3546789), NumTheoryFormulas::SUPERLONG(1254865), NumTheoryFormulas::SUPERLONG(13315791));
+	NumTheoryFormulas::SUPERLONG modinv = solver.MultInverse(NumTheoryFormulas::SUPERLONG(357912486), NumTheoryFormulas::SUPERLONG(147852369)) % NumTheoryFormulas::SUPERLONG(147852369);
 //	mpz_class base;
 //	mpz_class exp; 
 //	mpz_class mod;
@@ -30,30 +31,30 @@ int main(int argc, char *argv[])
 	//{
 	//	return -1;
 	//}
-	NumTheoryFormulas::SUPERLONG two = 2;
-	NumTheoryFormulas::SUPERLONG equations[4][2] = { {3256,125},{1234,137},{4567,323},{3578,143} };
-	NumTheoryFormulas::SUPERLONG bigM = 125 * 137 * 323 * 143;
+	NumTheoryFormulas::SUPERLONG two = NumTheoryFormulas::SUPERLONG(2);
+	NumTheoryFormulas::SUPERLONG equations[4][2] = { {NumTheoryFormulas::SUPERLONG(3256),NumTheoryFormulas::SUPERLONG(125)},{ NumTheoryFormulas::SUPERLONG(1234),NumTheoryFormulas::SUPERLONG(137)},{ NumTheoryFormulas::SUPERLONG(4567),NumTheoryFormulas::SUPERLONG(323)},{ NumTheoryFormulas::SUPERLONG(3578),NumTheoryFormulas::SUPERLONG(143)} };
+	NumTheoryFormulas::SUPERLONG bigM(125 * 137 * 323 * 143);// = 125 * 137 * 323 * 143;
 	NumTheoryFormulas::SUPERLONG crt = solver.CRT(4, equations);
 	//Decrypt a msg
-	unsigned long long p = 658943;  //prime 1
-	unsigned long long q = 357389;  //prime 2
-	unsigned long long N = p * q;  //modulus
-	unsigned long long e = 2347;  //exponent
-	unsigned long long mE = 21511484;  //encrypted msg
-	unsigned long long d = solver.MultInverse(e, (p-1) * (q-1));  //mult inv. exponent
+	NumTheoryFormulas::SUPERLONG p(678943);// = 658943;  //prime 1
+	NumTheoryFormulas::SUPERLONG q(357389);// = 357389;  //prime 2
+	NumTheoryFormulas::SUPERLONG N = p * q;  //modulus
+	NumTheoryFormulas::SUPERLONG e(2347);// = 2347;  //exponent
+	NumTheoryFormulas::SUPERLONG mE(21511484); = 21511484;  //encrypted msg
+	NumTheoryFormulas::SUPERLONG d = solver.MultInverse(e, (p+NegativeOne) * (q+NegativeOne));  //mult inv. exponent
 
-	unsigned long long msg = solver.ModExponent(mE, d, N);  //decrypted msg
+	NumTheoryFormulas::SUPERLONG msg = solver.ModExponent(mE, d, N);  //decrypted msg
 
 	//encrypt msg
 	//msg is 'HELP' -> 08051216
 	//p = 658943, q =357389, e = 2347
-	unsigned long long encrypted = solver.ModExponent(8051216, 2347, 658943 * 357389);  //Encrypted msg
-	unsigned long long p1 = 658943;
-	unsigned long long q1 = 357389;
-	unsigned long long N1 = p1*q1;
-	unsigned long long e1 = 2347;
-	unsigned long long d1 = solver.MultInverse(e1, (p1 - 1)*(q1 - 1));
-	unsigned long long decrypted = solver.ModExponent(encrypted, d1, N1);
+	NumTheoryFormulas::SUPERLONG encrypted = solver.ModExponent(NumTheoryFormulas::SUPERLONG(8051216), NumTheoryFormulas::SUPERLONG(2347), NumTheoryFormulas::SUPERLONG(658943 * 357389));  //Encrypted msg
+	NumTheoryFormulas::SUPERLONG p1(658943);// = 658943;
+	NumTheoryFormulas::SUPERLONG q1(357839);// = 357389;
+	NumTheoryFormulas::SUPERLONG N1 = p1*q1;
+	NumTheoryFormulas::SUPERLONG e1(2347);// = 2347;
+	NumTheoryFormulas::SUPERLONG d1 = solver.MultInverse(e1, (p1 - 1ull)*(q1 - 1ull));
+	NumTheoryFormulas::SUPERLONG decrypted = solver.ModExponent(encrypted, d1, N1);
 
 
 

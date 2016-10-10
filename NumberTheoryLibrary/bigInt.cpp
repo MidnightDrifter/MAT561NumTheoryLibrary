@@ -2459,13 +2459,19 @@ bool BigInt::Rossi::backUnitIsNull () const
 }
 
 
-
+//NOTE THIS WAS INITIALLY COMMENTED OUT - MAY NEED TO RE-COMMENT IF IT DUN WORK
 // ------------------
-// BigInt::Rossi& BigInt::Rossi::operator= (BigInt::Unit i_arg)
-// {
-//  *this = BigInt::Rossi (i_arg);
-//  return *this;
-// }
+ BigInt::Rossi& BigInt::Rossi::operator= (BigInt::Unit i_arg)
+ {
+  *this = BigInt::Rossi (i_arg);
+  return *this;
+ }
+
+ BigInt::Rossi& BigInt::Rossi::operator*=(BigInt::Rossi i)
+ {
+	 (*this) = (*this) * i;
+	 return *this;
+ }
 
 // ------------------
 BigInt::Rossi BigInt::Rossi::operator+ (const BigInt::Rossi& i_arg)
@@ -2507,6 +2513,9 @@ BigInt::Rossi BigInt::Rossi::operator+ (BigInt::Unit i_arg)
 }
 
 
+
+
+//END SH ADDED STUFF
 // ------------------
 bool BigInt::Rossi::operator< (const BigInt::Rossi& i_arg) const
 {

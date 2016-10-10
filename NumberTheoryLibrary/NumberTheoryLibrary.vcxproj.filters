@@ -38,5 +38,8 @@
     <ClInclude Include="NumTheoryFormulas.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Headers\bigInt.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

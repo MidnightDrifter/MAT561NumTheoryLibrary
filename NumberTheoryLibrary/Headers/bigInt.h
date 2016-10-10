@@ -582,12 +582,12 @@ public :
 
     // --- General purpose mathematical methods ---
 
-    // Rossi& operator= (Unit i_arg);
+     Rossi& operator= (Unit i_arg);
     Rossi  operator+ (const Rossi& i_arg);
     Rossi  operator+ (Unit i_arg);
     Rossi  operator* (Rossi i_arg) const;
     Rossi  operator* (Unit i_arg) const;
-    //  Rossi& Rossi::operator*= (Rossi i_arg);
+      Rossi& Rossi::operator*= (Rossi i_arg);
     Rossi  operator/ (const Rossi& i_arg) const;
     Rossi  operator% (const Rossi& i_arg) const;
     Rossi  divide(const Rossi& i_dividend, const Rossi& i_divisor, Rossi* o_remainder) const;

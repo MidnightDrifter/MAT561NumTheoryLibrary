@@ -14,7 +14,7 @@ public:
 	//static
 		SUPERLONG ModExponent(SUPERLONG base, SUPERLONG exp, SUPERLONG mod);
 	 SUPERLONG MultInverse(SUPERLONG a, SUPERLONG mod);
-	 SUPERLONG CRT(int numEquations, SUPERLONG** equations);
+	 SUPERLONG CRT(int numEquations, SUPERLONG equations[][2]);
 
 	 SUPERLONG GCD(SUPERLONG a, SUPERLONG b);
 

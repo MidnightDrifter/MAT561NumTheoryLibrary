@@ -132,6 +132,7 @@
     <ClCompile Include="NumTheoryFormulas.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Headers\bigInt.h" />
     <ClInclude Include="NumTheoryFormulas.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
