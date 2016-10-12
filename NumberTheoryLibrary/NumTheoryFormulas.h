@@ -23,6 +23,14 @@ public:
 
 	 SUPERLONG buildFromString(const char* c) { return SUPERLONG(std::string(c), BigInt::DEC_DIGIT); }
 
+	 SUPERLONG encrypt(SUPERLONG msg, SUPERLONG exp, SUPERLONG p, SUPERLONG q) { return ModExponent(msg, exp, p*q); }
+	 FAILPAIR decrypt(SUPERLONG msg, SUPERLONG exp, SUPERLONG p, SUPERLONG q);
+
+	SUPERLONG encrypt(const char* msg, BIG exp, BIG p, BIG q) { return encrypt(buildFromString(msg), SUPERLONG(exp), SUPERLONG(p), SUPERLONG(q)); }
+	 FAILPAIR decrypt(const char* msg, BIG exp, BIG p, BIG q) { return decrypt(buildFromString(msg), SUPERLONG(exp), SUPERLONG(p), SUPERLONG(q)); }
+
+
+
 	 SUPERLONG ModExponent(BIG base, BIG exp, BIG mod) { return ModExponent(SUPERLONG(base), SUPERLONG(exp), SUPERLONG(mod)); }
 	 FAILPAIR MultInverse(BIG a, BIG b) { return MultInverse(SUPERLONG(a), SUPERLONG(b)); }
 	// SUPERLONG CRT()
