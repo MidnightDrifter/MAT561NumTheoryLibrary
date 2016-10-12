@@ -153,7 +153,7 @@ SUPERLONG b = base % mod;
 	return m;
 }
 
-NumTheoryFormulas::SUPERLONG NumTheoryFormulas::MultInverse(SUPERLONG a, SUPERLONG mod)
+NumTheoryFormulas::FAILPAIR NumTheoryFormulas::MultInverse(SUPERLONG a, SUPERLONG mod)
 {
 	SUPERLONG xCoef = a%mod;
 	//long myB= b%mod;
@@ -182,7 +182,7 @@ NumTheoryFormulas::SUPERLONG NumTheoryFormulas::MultInverse(SUPERLONG a, SUPERLO
 		//
 		//Find the linear combination such that ax + by = GCD
 		//Push back that linear comb. + GCD
-		return RossiNegOne;
+		return std::pair<NumTheoryFormulas::SUPERLONG, bool>(RossiNegOne, false);;
 	}
 	SUPERLONG gcd = RossiZero;
 	for (int i = 1; (bigger != RossiZero && smaller != RossiZero); i++)
@@ -242,7 +242,7 @@ NumTheoryFormulas::SUPERLONG NumTheoryFormulas::MultInverse(SUPERLONG a, SUPERLO
 
 	}
 
-	return next[1] % mod;
+	return std::pair<NumTheoryFormulas::SUPERLONG,bool>(next[1] % mod,true);
 	/*if (b % gcd == RossiZero)
 	{
 		return next[RossiOne];
@@ -258,7 +258,7 @@ NumTheoryFormulas::SUPERLONG NumTheoryFormulas::MultInverse(SUPERLONG a, SUPERLO
 
 }
 
-NumTheoryFormulas::SUPERLONG NumTheoryFormulas::CRT( int numEqns, SUPERLONG** eqns)
+NumTheoryFormulas::FAILPAIR NumTheoryFormulas::CRT( int numEqns, SUPERLONG eqns[][2])
 {
 	SUPERLONG bigM = eqns[0][1];
 	SUPERLONG gcd = this->GCD(bigM, eqns[1][1]);
@@ -268,7 +268,7 @@ NumTheoryFormulas::SUPERLONG NumTheoryFormulas::CRT( int numEqns, SUPERLONG** eq
 		if (gcd != RossiOne)
 		{
 			//No solution, abort
-			return RossiNegOne;
+			return std::pair<NumTheoryFormulas::SUPERLONG, bool>(RossiNegOne,false);
 		}
 
 		gcd = this->GCD(gcd, eqns[0][i]);
@@ -291,10 +291,10 @@ NumTheoryFormulas::SUPERLONG NumTheoryFormulas::CRT( int numEqns, SUPERLONG** eq
 	for (int i = 0; i < numEqns; i++)
 	{
 		
-		out += ((this->MultInverse(bigM / eqns[i][0], eqns[i][0])* eqns[i][1]) % bigM);
+		out += ((this->MultInverse(bigM / eqns[i][0], eqns[i][0]).first* eqns[i][1]) % bigM);
 	}
 
-	return out % bigM;
+	return std::pair<NumTheoryFormulas::SUPERLONG,bool>(out % bigM,true);
 
 }
 

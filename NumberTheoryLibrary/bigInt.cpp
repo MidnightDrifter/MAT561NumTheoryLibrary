@@ -2420,6 +2420,8 @@ bool BigInt::Rossi::initViaString (const std::string& i_arg, std::size_t i_digit
 }
 
 
+
+
 // ------------------
 void BigInt::Rossi::resizeUnits(std::size_t i_size)
 {

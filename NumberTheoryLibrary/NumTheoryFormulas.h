@@ -6,17 +6,28 @@
 class NumTheoryFormulas
 {
 public:
-	typedef BigInt::Rossi SUPERLONG;   //unsigned long long SUPERLONG;  
+
+	typedef BigInt::Rossi SUPERLONG;   //unsigned long long SUPERLONG;
+	typedef unsigned long long BIG;								   //typedef BigInt::DEC_DIGIT DECIMAL;
+	typedef  std::pair<SUPERLONG, bool> FAILPAIR;
 	NumTheoryFormulas();
 	~NumTheoryFormulas();
 
 	 std::vector<std::vector<SUPERLONG>> EuclideanAlgorithm(SUPERLONG a, SUPERLONG b);
 	//static
 		SUPERLONG ModExponent(SUPERLONG base, SUPERLONG exp, SUPERLONG mod);
-	 SUPERLONG MultInverse(SUPERLONG a, SUPERLONG mod);
-	 SUPERLONG CRT(int numEquations, SUPERLONG equations[][2]);
+		FAILPAIR MultInverse(SUPERLONG a, SUPERLONG mod);
+	 FAILPAIR CRT(int numEquations, SUPERLONG equations[][2]);
 
 	 SUPERLONG GCD(SUPERLONG a, SUPERLONG b);
+
+	 SUPERLONG buildFromString(const char* c) { return SUPERLONG(std::string(c), BigInt::DEC_DIGIT); }
+
+	 SUPERLONG ModExponent(BIG base, BIG exp, BIG mod) { return ModExponent(SUPERLONG(base), SUPERLONG(exp), SUPERLONG(mod)); }
+	 FAILPAIR MultInverse(BIG a, BIG b) { return MultInverse(SUPERLONG(a), SUPERLONG(b)); }
+	// SUPERLONG CRT()
+	 SUPERLONG GCD(BIG a, BIG b) {return GCD(SUPERLONG(a), SUPERLONG(b)); }
+	  
 
 	//Actually just get the multinv(a,n) -> return x such that ax = 1 mod n
 
