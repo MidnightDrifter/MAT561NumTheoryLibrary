@@ -3,6 +3,22 @@
 #include <gmp.h>
 
 NumTheoryFormulas;
+
+NumTheoryFormulas::SUPERLONG ExitOnFailure(NumTheoryFormulas::FAILPAIR f)
+{
+	if(f.second)
+	{
+		return f.first;
+	}
+
+	else
+	{
+		
+		exit(-1);
+	}
+}
+
+
 int main(int argc, char *argv[])
 {
 	NumTheoryFormulas::SUPERLONG NegativeOne(-1);
@@ -50,9 +66,9 @@ int main(int argc, char *argv[])
 	//msg is 'HELP' -> 08051216
 	//p = 658943, q =357389, e = 2347
 	const std::string input("7782118579470520751712059");
-	NumTheoryFormulas::SUPERLONG msg(input, BigInt::DEC_DIGIT);
+	NumTheoryFormulas::SUPERLONG msg2(input, BigInt::DEC_DIGIT);
 	
-	NumTheoryFormulas::SUPERLONG encrypted = msg;//solver.ModExponent(msg,).first;
+	NumTheoryFormulas::SUPERLONG encrypted = msg2;//solver.ModExponent(msg,).first;
 	NumTheoryFormulas::SUPERLONG p1(658943);// = 658943;
 	NumTheoryFormulas::SUPERLONG q1(357839);// = 357389;
 	NumTheoryFormulas::SUPERLONG N1 = p1*q1;

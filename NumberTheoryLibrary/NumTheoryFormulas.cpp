@@ -311,6 +311,22 @@ NumTheoryFormulas::SUPERLONG NumTheoryFormulas::GCD(SUPERLONG a, SUPERLONG b)
 }
 
 
+NumTheoryFormulas::FAILPAIR NumTheoryFormulas::decrypt(SUPERLONG msg, SUPERLONG exp, SUPERLONG p, SUPERLONG q)
+{
+	SUPERLONG One(1);// = SUPERLONG(-1);
+	
+	if(GCD((p-One)*(q-One),exp) != One)
+	{
+		return FAILPAIR(-1, false);
+	}
+
+	else
+	{
+		return FAILPAIR(ModExponent(msg, exp*(MultInverse(exp, (p - One)*(q - One))).first, SUPERLONG(p*q)), true);
+	}
+
+}
+
 NumTheoryFormulas::NumTheoryFormulas()
 {
 }

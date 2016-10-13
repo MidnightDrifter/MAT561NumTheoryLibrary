@@ -9,11 +9,12 @@ public:
 
 	typedef BigInt::Rossi SUPERLONG;   //unsigned long long SUPERLONG;
 	typedef unsigned long long BIG;								   //typedef BigInt::DEC_DIGIT DECIMAL;
+	typedef long long SIGNEDBIG;
 	typedef  std::pair<SUPERLONG, bool> FAILPAIR;
 	NumTheoryFormulas();
 	~NumTheoryFormulas();
 
-	 std::vector<std::vector<SUPERLONG>> EuclideanAlgorithm(SUPERLONG a, SUPERLONG b);
+	 std::vector<std::vector<SIGNEDBIG> EuclideanAlgorithm(SIGNEDBIG a, SIGNEDBIG b);
 	//static
 		SUPERLONG ModExponent(SUPERLONG base, SUPERLONG exp, SUPERLONG mod);
 		FAILPAIR MultInverse(SUPERLONG a, SUPERLONG mod);
@@ -24,7 +25,7 @@ public:
 	 SUPERLONG buildFromString(const char* c) { return SUPERLONG(std::string(c), BigInt::DEC_DIGIT); }
 
 	 SUPERLONG encrypt(SUPERLONG msg, SUPERLONG exp, SUPERLONG p, SUPERLONG q) { return ModExponent(msg, exp, p*q); }
-	 FAILPAIR decrypt(SUPERLONG msg, SUPERLONG exp, SUPERLONG p, SUPERLONG q);
+	 FAILPAIR decrypt(SUPERLONG msg, SUPERLONG exp, SUPERLONG p, SUPERLONG q); 
 
 	SUPERLONG encrypt(const char* msg, BIG exp, BIG p, BIG q) { return encrypt(buildFromString(msg), SUPERLONG(exp), SUPERLONG(p), SUPERLONG(q)); }
 	 FAILPAIR decrypt(const char* msg, BIG exp, BIG p, BIG q) { return decrypt(buildFromString(msg), SUPERLONG(exp), SUPERLONG(p), SUPERLONG(q)); }
