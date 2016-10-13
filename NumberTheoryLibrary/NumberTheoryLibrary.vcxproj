@@ -127,12 +127,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="bigInt.cpp" />
+    <ClCompile Include="InfInt.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="NumTheoryFormulas.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Headers\bigInt.h" />
+    <ClInclude Include="Headers\InfInt.h" />
     <ClInclude Include="NumTheoryFormulas.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

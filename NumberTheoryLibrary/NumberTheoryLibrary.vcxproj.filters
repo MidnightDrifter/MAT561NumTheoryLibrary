@@ -30,7 +30,7 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="bigInt.cpp">
+    <ClCompile Include="InfInt.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -38,7 +38,7 @@
     <ClInclude Include="NumTheoryFormulas.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Headers\bigInt.h">
+    <ClInclude Include="Headers\InfInt.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
