@@ -18,16 +18,16 @@ public:
 	 std::vector<std::vector<SUPERLONG>> EuclideanAlgorithm(SUPERLONG a, SUPERLONG b);
 	//static
 		SUPERLONG ModExponent(SUPERLONG base, SUPERLONG exp, SUPERLONG mod);
-		FAILPAIR MultInverse(SUPERLONG a, SUPERLONG mod);
-	 FAILPAIR CRT(int numEquations, SUPERLONG equations[][2]);
+		SUPERLONG MultInverse(SUPERLONG a, SUPERLONG mod);
+	 SUPERLONG CRT(int numEquations, SUPERLONG equations[][2]);
 
 	 SUPERLONG GCD(SUPERLONG a, SUPERLONG b);
 
 	// SUPERLONG buildFromString(const char* c) { return SUPERLONG(std::string(c), BigInt::DEC_DIGIT); }
 
 	 SUPERLONG encrypt(SUPERLONG msg, SUPERLONG exp, SUPERLONG p, SUPERLONG q) { return ModExponent(msg, exp, p*q); }
-	 FAILPAIR decrypt(SUPERLONG msg, SUPERLONG exp, SUPERLONG p, SUPERLONG q); 
-
+	 SUPERLONG decrypt(SUPERLONG msg, SUPERLONG exp, SUPERLONG p, SUPERLONG q); 
+	 SUPERLONG exitOnFailure(FAILPAIR f);
 	//SUPERLONG encrypt(const char* msg, BIG exp, BIG p, BIG q) { return encrypt(SUPERLONG(msg), SUPERLONG(exp), SUPERLONG(p), SUPERLONG(q)); }
 	// FAILPAIR decrypt(const char* msg, BIG exp, BIG p, BIG q) { return decrypt(SUPERLONG(msg), SUPERLONG(exp), SUPERLONG(p), SUPERLONG(q)); }
 

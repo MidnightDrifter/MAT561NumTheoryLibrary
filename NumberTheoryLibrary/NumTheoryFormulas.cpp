@@ -4,7 +4,13 @@
 
 
 std::vector<std::vector<NumTheoryFormulas::SUPERLONG>> NumTheoryFormulas::EuclideanAlgorithm(NumTheoryFormulas::SUPERLONG a, NumTheoryFormulas::SUPERLONG b)
-{
+{/*
+	if (GCD(a, mod) > 1)
+	{
+		return FAILPAIR(-1, false);
+	}*/
+
+
 	std::vector<std::vector<NumTheoryFormulas::SUPERLONG>> output = std::vector<std::vector<NumTheoryFormulas::SUPERLONG>>();
 	//matrix format:  bigger, quotient, smaller, remainder, GCD
 	
@@ -150,8 +156,14 @@ NumTheoryFormulas::SUPERLONG b = base % mod;
 	return m;
 }
 
-NumTheoryFormulas::FAILPAIR NumTheoryFormulas::MultInverse(NumTheoryFormulas::SUPERLONG a, NumTheoryFormulas::SUPERLONG mod)
+NumTheoryFormulas::SUPERLONG NumTheoryFormulas::MultInverse(NumTheoryFormulas::SUPERLONG a, NumTheoryFormulas::SUPERLONG mod)
 {
+	if (GCD(a, mod) > 1)
+	{
+		return exitOnFailure(FAILPAIR(-1, false));
+	}
+
+
 	NumTheoryFormulas::SUPERLONG xCoef = a%mod;
 	//long myB= b%mod;
 	NumTheoryFormulas::SUPERLONG myMod = mod;
@@ -179,7 +191,7 @@ NumTheoryFormulas::FAILPAIR NumTheoryFormulas::MultInverse(NumTheoryFormulas::SU
 		//
 		//Find the linear combination such that ax + by = GCD
 		//Push back that linear comb. + GCD
-		return std::pair<NumTheoryFormulas::SUPERLONG, bool>(-1, false);
+		return exitOnFailure(std::pair<NumTheoryFormulas::SUPERLONG, bool>(-1, false));
 	}
 	NumTheoryFormulas::SUPERLONG gcd = 0;
 	for (int i = 1; (bigger != 0 && smaller != 0); i++)
@@ -238,8 +250,14 @@ NumTheoryFormulas::FAILPAIR NumTheoryFormulas::MultInverse(NumTheoryFormulas::SU
 
 
 	}
+	
+	if (next[1] >= mod)
+	{
+		next[1] %= mod;
+	}
 
-	return std::pair<NumTheoryFormulas::SUPERLONG,bool>(next[1] % mod,true);
+	long l = next[1].toLong();
+	return exitOnFailure(std::pair<NumTheoryFormulas::SUPERLONG,bool>(next[1],true));
 	/*if (b % gcd == 0)
 	{
 		return next[1];
@@ -255,7 +273,7 @@ NumTheoryFormulas::FAILPAIR NumTheoryFormulas::MultInverse(NumTheoryFormulas::SU
 
 }
 
-NumTheoryFormulas::FAILPAIR NumTheoryFormulas::CRT( int numEqns, NumTheoryFormulas::SUPERLONG eqns[][2])
+NumTheoryFormulas::SUPERLONG NumTheoryFormulas::CRT( int numEqns, NumTheoryFormulas::SUPERLONG eqns[][2])
 {
 	NumTheoryFormulas::SUPERLONG bigM = eqns[0][1];
 	NumTheoryFormulas::SUPERLONG gcd = this->GCD(bigM, eqns[1][1]);
@@ -264,8 +282,8 @@ NumTheoryFormulas::FAILPAIR NumTheoryFormulas::CRT( int numEqns, NumTheoryFormul
 	{
 		if (gcd != 1)
 		{
-			//No solution, abort
-			return std::pair<NumTheoryFormulas::SUPERLONG, bool>(-1,false);
+			//No solution, abort)
+			return exitOnFailure(std::pair<NumTheoryFormulas::SUPERLONG, bool>(-1,false));
 		}
 
 		gcd = this->GCD(gcd, eqns[0][i]);
@@ -288,10 +306,10 @@ NumTheoryFormulas::FAILPAIR NumTheoryFormulas::CRT( int numEqns, NumTheoryFormul
 	for (int i = 0; i < numEqns; i++)
 	{
 		
-		out += ((this->MultInverse(bigM / eqns[i][0], eqns[i][0]).first* eqns[i][1]) % bigM);
+		out += ((this->MultInverse(bigM / eqns[i][0], eqns[i][0])* eqns[i][1]) % bigM);
 	}
 
-	return std::pair<NumTheoryFormulas::SUPERLONG,bool>(out % bigM,true);
+	return exitOnFailure(std::pair<NumTheoryFormulas::SUPERLONG,bool>(out % bigM,true));
 
 }
 
@@ -308,21 +326,37 @@ NumTheoryFormulas::SUPERLONG NumTheoryFormulas::GCD(NumTheoryFormulas::SUPERLONG
 }
 
 
-NumTheoryFormulas::FAILPAIR NumTheoryFormulas::decrypt(NumTheoryFormulas::SUPERLONG msg, NumTheoryFormulas::SUPERLONG exp, NumTheoryFormulas::SUPERLONG p, NumTheoryFormulas::SUPERLONG q)
+NumTheoryFormulas::SUPERLONG NumTheoryFormulas::decrypt(NumTheoryFormulas::SUPERLONG msg, NumTheoryFormulas::SUPERLONG exp, NumTheoryFormulas::SUPERLONG p, NumTheoryFormulas::SUPERLONG q)
 {
 	NumTheoryFormulas::SUPERLONG One(1);// = NumTheoryFormulas::SUPERLONG(-1);
 	
 	if(GCD((p-One)*(q-One),exp) != One)
 	{
-		return FAILPAIR(-1, false);
+		return exitOnFailure(FAILPAIR(-1, false));
 	}
 
 	else
 	{
-		return FAILPAIR(ModExponent(msg, exp*(MultInverse(exp, (p - One)*(q - One))).first, NumTheoryFormulas::SUPERLONG(p*q)), true);
+		return exitOnFailure(FAILPAIR(ModExponent(msg, exp*(MultInverse(exp, (p - One)*(q - One))), NumTheoryFormulas::SUPERLONG(p*q)), true));
 	}
 
 }
+
+
+NumTheoryFormulas::SUPERLONG NumTheoryFormulas::exitOnFailure(NumTheoryFormulas::FAILPAIR f)
+{
+	if (f.second)
+	{
+		return f.first;
+	}
+
+	else
+	{
+
+		exit(-1);
+	}
+}
+
 
 NumTheoryFormulas::NumTheoryFormulas()
 {

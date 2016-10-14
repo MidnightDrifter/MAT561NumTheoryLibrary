@@ -5,19 +5,7 @@
 
 NumTheoryFormulas;
 
-NumTheoryFormulas::SUPERLONG ExitOnFailure(NumTheoryFormulas::FAILPAIR f)
-{
-	if(f.second)
-	{
-		return f.first;
-	}
 
-	else
-	{
-		
-		exit(-1);
-	}
-}
 
 
 int main(int argc, char *argv[])
@@ -77,9 +65,11 @@ int main(int argc, char *argv[])
 	NumTheoryFormulas::SUPERLONG d1 = solver.MultInverse(e1, (p1 -1)*(q1-1)).first;
 	NumTheoryFormulas::SUPERLONG decrypted = solver.ModExponent(encrypted, d1, N1);
 
-
-
-	if(answer ==0)
+	NumTheoryFormulas::SUPERLONG test = solver.ModExponent("715150412210311", 5, 21631);
+int bbb = 	test.toInt();
+answer = solver.ModExponent(3004, 5, 21631).toInt();
+long long answerL = solver.MultInverse(5, 40 * 540).first.toInt();
+	if(solver.MultInverse(5, 40*540).second)
 	{
 		return 1;
 	}
