@@ -127,6 +127,13 @@ NumTheoryFormulas::SUPERLONG NumTheoryFormulas::ModExponent(NumTheoryFormulas::S
 	NumTheoryFormulas::SUPERLONG m = 1;
 NumTheoryFormulas::SUPERLONG b = base % mod;
 	NumTheoryFormulas::SUPERLONG e = exp;
+
+	long long testE, testB, testM;
+	testE = e.toLongLong();
+	testB = b.toLongLong();
+	testM = mod.toLongLong();
+
+
 	if(mod ==1)// exp ==0)
 	{
 		return 0;
@@ -136,14 +143,18 @@ NumTheoryFormulas::SUPERLONG b = base % mod;
 	{
 		return 1;
 	}
-	while(e>0)
+	while(e!=0)
 	{
 		
 		if (e % 2 == 1)
 		{
 			//m *= (b%mod);
-			m = m*(b%mod);
-			m = m% mod;
+			m = (m*b)%mod;
+			testM = m.toLongLong();
+			testB = b.toLongLong();
+			testE = e.toLongLong();
+			int qqq = 1;
+		
 		}
 		
 		e = e / 2; 
@@ -153,6 +164,7 @@ NumTheoryFormulas::SUPERLONG b = base % mod;
 		//b %= mod;
 		//b *= (b%mod);
 	}
+	long long test = m.toLongLong();
 	return m;
 }
 
@@ -256,7 +268,40 @@ NumTheoryFormulas::SUPERLONG NumTheoryFormulas::MultInverse(NumTheoryFormulas::S
 		next[1] %= mod;
 	}
 
-	long l = next[1].toLong();
+	
+		
+	
+
+	output.push_back(std::vector<NumTheoryFormulas::SUPERLONG>());
+	output.at(output.size() - 1).push_back(std::max(a, mod));
+	output.at(output.size() - 1).push_back(next[0]);
+	output.at(output.size() - 1).push_back(std::min(a, mod));
+	output.at(output.size() - 1).push_back(next[1]);
+	output.at(output.size() - 1).push_back(gcd);
+
+	//Print output here
+
+	printf("A   Q   B   R   GCD\n");
+
+	for (auto i = output.begin(); i != output.end(); i++)
+	{
+		if (i != output.end() - 2)
+		{
+			for (int j = 0; j < 5; j++)
+			{
+				printf("%lli", (*i).at(j));
+				printf("%s", "   ");
+			}
+			printf("\n");
+		}
+	}
+
+
+	while (next[1]<0)
+	{
+		next[1] += mod;
+	}
+	long long l = next[1].toLongLong();
 	return exitOnFailure(std::pair<NumTheoryFormulas::SUPERLONG,bool>(next[1],true));
 	/*if (b % gcd == 0)
 	{
@@ -330,14 +375,20 @@ NumTheoryFormulas::SUPERLONG NumTheoryFormulas::decrypt(NumTheoryFormulas::SUPER
 {
 	NumTheoryFormulas::SUPERLONG One(1);// = NumTheoryFormulas::SUPERLONG(-1);
 	
-	if(GCD((p-One)*(q-One),exp) != One)
+	if(GCD((p-1)*(q-1),exp) != 1)
 	{
 		return exitOnFailure(FAILPAIR(-1, false));
 	}
 
 	else
 	{
-		return exitOnFailure(FAILPAIR(ModExponent(msg, exp*(MultInverse(exp, (p - One)*(q - One))), NumTheoryFormulas::SUPERLONG(p*q)), true));
+		NumTheoryFormulas::SUPERLONG phiN = (p - 1)*(q - 1);
+		long long phi = phiN.toLongLong();
+		NumTheoryFormulas::SUPERLONG bigN = p*q;
+		long long N = bigN.toLongLong();
+		NumTheoryFormulas::SUPERLONG d = MultInverse(exp, phiN);
+		long long testD = d.toLongLong();
+		return exitOnFailure(FAILPAIR(ModExponent(msg, (d), N), true));
 	}
 
 }
