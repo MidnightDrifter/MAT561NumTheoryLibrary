@@ -85,9 +85,24 @@ int main(int argc, char *argv[])
 	long long d = solver.MultInverse(6043, (43752 * 87148)).toLongLong();
 	std::string decrypted = solver.decrypt(out, 6043, 43753, 87149).toString();
 
+	d = solver.decryptionExponent(5, 1237, 4327).toLongLong();
+	//4784648 1933497 4437506
+	long long p1, p2, p3;
+	p1 = solver.decrypt(4784648, 5, 1237, 4327).toLongLong();
+	p2 = solver.decrypt(1933497, 5, 1237, 4327).toLongLong();
+	p3 = solver.decrypt(4437506, 5, 1237, 4327).toLongLong();
 
+	//p3 = solver.decryptionExponent(5, 41, 541).toLongLong();
+	NumTheoryFormulas::SUPERLONG eqns[3][2] = { {257261,303799},{117466,289279},   {260584,410503} };
+	std::string p4 = solver.CRT(3, eqns).toString();
+	long long test = (NumTheoryFormulas::SUPERLONG(303799) * NumTheoryFormulas::SUPERLONG(289279) * NumTheoryFormulas::SUPERLONG(410503)).toLongLong();
+	if(NumTheoryFormulas::SUPERLONG(p1) > (NumTheoryFormulas::SUPERLONG(303799) * NumTheoryFormulas::SUPERLONG(289279) * NumTheoryFormulas::SUPERLONG(410503)))
+	{
+		return -1123;
+	}
 
-
+	NumTheoryFormulas::SUPERLONG eqns2[3][2] = { {2,3}, {3,5}, {2,7} };
+	p2 = solver.CRT(3, eqns2).toLongLong();
 
 
 	return 0;

@@ -22,7 +22,7 @@ public:
 	 SUPERLONG CRT(int numEquations, SUPERLONG equations[][2]);
 
 	 SUPERLONG GCD(SUPERLONG a, SUPERLONG b);
-
+	 SUPERLONG decryptionExponent(SUPERLONG exp, SUPERLONG q, SUPERLONG p);
 	// SUPERLONG buildFromString(const char* c) { return SUPERLONG(std::string(c), BigInt::DEC_DIGIT); }
 
 	 SUPERLONG encrypt(SUPERLONG msg, SUPERLONG exp, SUPERLONG p, SUPERLONG q) { return ModExponent(msg, exp, p*q); }

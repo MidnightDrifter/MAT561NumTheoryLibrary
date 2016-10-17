@@ -170,23 +170,27 @@ NumTheoryFormulas::SUPERLONG b = base % mod;
 
 NumTheoryFormulas::SUPERLONG NumTheoryFormulas::MultInverse(NumTheoryFormulas::SUPERLONG a, NumTheoryFormulas::SUPERLONG mod)
 {
-	if (GCD(a, mod) > 1)
+	NumTheoryFormulas::SUPERLONG xCoef = a%mod;
+	long long at = a.toLongLong();
+	long long te = xCoef.toLongLong();
+	long long modt = mod.toLongLong();
+	//long myB= b%mod;
+	NumTheoryFormulas::SUPERLONG myMod = mod;
+	if (GCD(xCoef, myMod) > 1)
 	{
 		return exitOnFailure(FAILPAIR(-1, false));
 	}
 
 
-	NumTheoryFormulas::SUPERLONG xCoef = a%mod;
-	//long myB= b%mod;
-	NumTheoryFormulas::SUPERLONG myMod = mod;
+
 
 	//Euclidean algorithm, return the coef of b in the final row
 
 	std::vector<std::vector<NumTheoryFormulas::SUPERLONG>> output = std::vector<std::vector<NumTheoryFormulas::SUPERLONG>>();
 	//matrix format:  bigger, quotient, smaller, remainder, GCD
 
-	NumTheoryFormulas::SUPERLONG bigger = std::max(xCoef, mod);
-	NumTheoryFormulas::SUPERLONG smaller = std::min(xCoef, mod);
+	NumTheoryFormulas::SUPERLONG bigger = std::max(xCoef, myMod);
+	NumTheoryFormulas::SUPERLONG smaller = std::min(xCoef, myMod);
 
 	NumTheoryFormulas::SUPERLONG quotient = bigger / smaller;
 	NumTheoryFormulas::SUPERLONG remainder = bigger % smaller;
@@ -321,6 +325,8 @@ NumTheoryFormulas::SUPERLONG NumTheoryFormulas::MultInverse(NumTheoryFormulas::S
 NumTheoryFormulas::SUPERLONG NumTheoryFormulas::CRT( int numEqns, NumTheoryFormulas::SUPERLONG eqns[][2])
 {
 	NumTheoryFormulas::SUPERLONG bigM = eqns[0][1];
+	long long bM = bigM.toLongLong();
+	long long te = eqns[1][1].toLongLong();
 	NumTheoryFormulas::SUPERLONG gcd = this->GCD(bigM, eqns[1][1]);
 	bigM = bigM* eqns[1][1];
 	for (int i = 2; i < numEqns; i++)
@@ -339,34 +345,40 @@ NumTheoryFormulas::SUPERLONG NumTheoryFormulas::CRT( int numEqns, NumTheoryFormu
 	
 	//NumTheoryFormulas::SUPERLONG* mArray = new NumTheoryFormulas::SUPERLONG(sizeof(NumTheoryFormulas::SUPERLONG) * numEqns);
 	//mArray[0] = bigM;
-	for (int i = 1; i < numEqns; i++)
+	for (int i = 2; i < numEqns; i++)
 	{
 		//mArray[i] = eqns[i][1];
 		bigM =  bigM* eqns[i][1];
 		
 	}
-
+	bM = bigM.toLongLong();
 	NumTheoryFormulas::SUPERLONG out = 0;
-
+	NumTheoryFormulas::SUPERLONG mTemp;
 	for (int i = 0; i < numEqns; i++)
 	{
-		
-		out += ((this->MultInverse(bigM / eqns[i][0], eqns[i][0])* eqns[i][1]) % bigM);
+		mTemp = bigM / eqns[i][1];
+		out += ((this->MultInverse(mTemp, eqns[i][1])* eqns[i][0]*mTemp) % bigM);
 	}
-
-	return exitOnFailure(std::pair<NumTheoryFormulas::SUPERLONG,bool>(out % bigM,true));
+	out = out % bigM;
+	return exitOnFailure(std::pair<NumTheoryFormulas::SUPERLONG,bool>((out % bigM),true));
 
 }
 
 NumTheoryFormulas::SUPERLONG NumTheoryFormulas::GCD(NumTheoryFormulas::SUPERLONG a, NumTheoryFormulas::SUPERLONG b)
 {
+	NumTheoryFormulas::SUPERLONG a1(a);
+	NumTheoryFormulas::SUPERLONG b1(b);
+
+	long long ta = a.toLongLong();
+	long long tb = b.toLongLong();
 	
-		while (b != 0) {
-			NumTheoryFormulas::SUPERLONG r = a % b;
-			a = b;
-			b = r;
-		}
-		return a;
+		while (b1 != 0) {
+			NumTheoryFormulas::SUPERLONG r = a1 % b1;
+			a1 = b1;
+			b1 = r;
+		} 
+		long long t = a1.toLongLong();
+		return a1;
 	
 }
 
@@ -391,6 +403,11 @@ NumTheoryFormulas::SUPERLONG NumTheoryFormulas::decrypt(NumTheoryFormulas::SUPER
 		return exitOnFailure(FAILPAIR(ModExponent(msg, (d), N), true));
 	}
 
+}
+
+NumTheoryFormulas::SUPERLONG NumTheoryFormulas::decryptionExponent(NumTheoryFormulas::SUPERLONG exp, NumTheoryFormulas::SUPERLONG p, NumTheoryFormulas::SUPERLONG q)
+{
+	return MultInverse(exp, (p - 1)*(q - 1));
 }
 
 
