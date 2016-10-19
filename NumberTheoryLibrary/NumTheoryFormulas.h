@@ -26,6 +26,7 @@ public:
 	// SUPERLONG buildFromString(const char* c) { return SUPERLONG(std::string(c), BigInt::DEC_DIGIT); }
 
 	 SUPERLONG encrypt(SUPERLONG msg, SUPERLONG exp, SUPERLONG p, SUPERLONG q) { return ModExponent(msg, exp, p*q); }
+	 SUPERLONG encrypt(SUPERLONG msg, SUPERLONG exp, SUPERLONG n) { return ModExponent(msg, exp, n); }
 	 SUPERLONG decrypt(SUPERLONG msg, SUPERLONG exp, SUPERLONG p, SUPERLONG q); 
 	 SUPERLONG exitOnFailure(FAILPAIR f);
 	//SUPERLONG encrypt(const char* msg, BIG exp, BIG p, BIG q) { return encrypt(SUPERLONG(msg), SUPERLONG(exp), SUPERLONG(p), SUPERLONG(q)); }

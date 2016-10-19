@@ -749,11 +749,11 @@ const InfInt InfInt::two = 2;
 
   long long InfInt::toLongLong() const
 {//PROFILED_SCOPE
-	if (*this > LONG_LONG_MAX || *this < LONG_LONG_MIN)
+	  if (*this > LONG_LONG_MAX || *this < LONG_LONG_MIN)
 #ifdef INFINT_USE_EXCEPTIONS
-		throw InfIntException("out of bounds");
+		  throw InfIntException("out of bounds");
 #else
-		std::cerr << "Out of LLONG bounds: " << *this << std::endl;
+		  std::cerr << "" << std::endl;//Out of LLONG bounds: " << *this << std::endl;
 #endif
 	long long result = 0;
 	for (int i = (int)val.size() - 1; i >= 0; --i)

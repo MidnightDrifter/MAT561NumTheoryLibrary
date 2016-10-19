@@ -285,20 +285,20 @@ NumTheoryFormulas::SUPERLONG NumTheoryFormulas::MultInverse(NumTheoryFormulas::S
 
 	//Print output here
 
-	printf("A   Q   B   R   GCD\n");
+	//printf("A   Q   B   R   GCD\n");
 
-	for (auto i = output.begin(); i != output.end(); i++)
-	{
-		if (i != output.end() - 2)
-		{
-			for (int j = 0; j < 5; j++)
-			{
-				printf("%lli", (*i).at(j));
-				printf("%s", "   ");
-			}
-			printf("\n");
-		}
-	}
+	//for (auto i = output.begin(); i != output.end(); i++)
+	//{
+	//	if (i != output.end() - 2)
+	//	{
+	//		for (int j = 0; j < 5; j++)
+	//		{
+	//			printf("%lli", (*i).at(j));
+	//			printf("%s", "   ");
+	//		}
+	//		printf("\n");
+	//	}
+	//}
 
 
 	while (next[1]<0)
@@ -394,20 +394,24 @@ NumTheoryFormulas::SUPERLONG NumTheoryFormulas::decrypt(NumTheoryFormulas::SUPER
 
 	else
 	{
+		NumTheoryFormulas::SUPERLONG msgCopy = msg;
+		NumTheoryFormulas::SUPERLONG eCopy = exp;
 		NumTheoryFormulas::SUPERLONG phiN = (p - 1)*(q - 1);
 		long long phi = phiN.toLongLong();
-		NumTheoryFormulas::SUPERLONG bigN = p*q;
+		NumTheoryFormulas::SUPERLONG bigN( p*q);
 		long long N = bigN.toLongLong();
-		NumTheoryFormulas::SUPERLONG d = MultInverse(exp, phiN);
-		long long testD = d.toLongLong();
-		return exitOnFailure(FAILPAIR(ModExponent(msg, (d), N), true));
+		NumTheoryFormulas::SUPERLONG d = MultInverse(eCopy, phiN);
+		//std::cout << d << std::endl;
+		return exitOnFailure(FAILPAIR(ModExponent(msgCopy, (d), bigN), true));
 	}
 
 }
 
 NumTheoryFormulas::SUPERLONG NumTheoryFormulas::decryptionExponent(NumTheoryFormulas::SUPERLONG exp, NumTheoryFormulas::SUPERLONG p, NumTheoryFormulas::SUPERLONG q)
 {
-	return MultInverse(exp, (p - 1)*(q - 1));
+	NumTheoryFormulas::SUPERLONG copy = (p-1)*(q-1);
+	NumTheoryFormulas::SUPERLONG eCopy = exp;
+	return MultInverse(eCopy, copy);
 }
 
 
