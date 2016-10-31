@@ -429,6 +429,25 @@ NumTheoryFormulas::SUPERLONG NumTheoryFormulas::exitOnFailure(NumTheoryFormulas:
 	}
 }
 
+NumTheoryFormulas::SUPERLONG NumTheoryFormulas::order(NumTheoryFormulas::SUPERLONG a, NumTheoryFormulas::SUPERLONG base)
+{
+	if (GCD(a, base) != 1)
+	{
+		return exitOnFailure(FAILPAIR(-1, false));
+	}
+
+	NumTheoryFormulas::SUPERLONG holder, out;
+	for (NumTheoryFormulas::SUPERLONG i = 1; i <= base; i++)
+	{
+		holder = ModExponent(i, 1, base);
+		if (holder == 0 && (out = ModExponent(a,i,base))==0)
+		{
+			return out;
+		}
+	}
+}
+
+
 
 NumTheoryFormulas::NumTheoryFormulas()
 {

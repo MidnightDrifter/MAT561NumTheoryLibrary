@@ -29,6 +29,7 @@ public:
 	 SUPERLONG encrypt(SUPERLONG msg, SUPERLONG exp, SUPERLONG n) { return ModExponent(msg, exp, n); }
 	 SUPERLONG decrypt(SUPERLONG msg, SUPERLONG exp, SUPERLONG p, SUPERLONG q); 
 	 SUPERLONG exitOnFailure(FAILPAIR f);
+	 SUPERLONG order(SUPERLONG a, SUPERLONG base);
 	//SUPERLONG encrypt(const char* msg, BIG exp, BIG p, BIG q) { return encrypt(SUPERLONG(msg), SUPERLONG(exp), SUPERLONG(p), SUPERLONG(q)); }
 	// FAILPAIR decrypt(const char* msg, BIG exp, BIG p, BIG q) { return decrypt(SUPERLONG(msg), SUPERLONG(exp), SUPERLONG(p), SUPERLONG(q)); }
 

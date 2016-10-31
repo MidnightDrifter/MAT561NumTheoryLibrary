@@ -173,6 +173,10 @@ std::cout << "Decrypted msg:  " << testDecryptMsg << std::endl;
 
 
 
+std::cout << "Mod exp(2016, 22545, 7663):  " << solver.ModExponent(2016, 22545, 7663).toString() << std::endl;
+
+
+
 
 	return 0;
 }
