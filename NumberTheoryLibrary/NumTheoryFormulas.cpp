@@ -448,6 +448,103 @@ NumTheoryFormulas::SUPERLONG NumTheoryFormulas::order(NumTheoryFormulas::SUPERLO
 }
 
 
+std::vector<NumTheoryFormulas::SUPERLONG> NumTheoryFormulas::factorize(NumTheoryFormulas::SUPERLONG a)
+{
+	std::vector<SUPERLONG> out;
+	SUPERLONG temp;
+	for (SUPERLONG i = 1; i <= a; i++)
+	{
+		temp = ModExponent(i, 1, a);
+		if (temp == 0)
+		{
+			out.push_back(i);
+		}
+	}
+
+	return out;
+
+}
+
+void NumTheoryFormulas::printFactors(std::vector<NumTheoryFormulas::SUPERLONG> a)
+{
+	std::ofstream out;
+	std::string filename("Factorization");
+	//filename += a.toString();
+	out.open(filename);
+	int k = 0;
+	for (auto i = a.begin(); i != a.end(); i++)
+	{
+		if(k==5)
+		{
+			k = 0;
+			std::cout << std::endl;
+			out << std::endl;
+		}
+
+		std::cout << i->toString() << "\t";
+		out << i->toString() << "\t";
+		k++;
+
+	}
+	out.close();
+}
+
+void NumTheoryFormulas::printFactors(NumTheoryFormulas::SUPERLONG a)
+{
+	printFactors(factorize(a));
+}
+
+NumTheoryFormulas::SUPERLONG NumTheoryFormulas::discreteLogBruteForce(NumTheoryFormulas::SUPERLONG pRoot, NumTheoryFormulas::SUPERLONG val, NumTheoryFormulas::SUPERLONG mod)
+{
+	SUPERLONG out = -1;
+	for (SUPERLONG i = 1; i <= mod; i++)
+	{
+		if(val==ModExponent(pRoot,i,mod))
+		{
+			return i;
+		}
+	}
+
+}
+
+
+NumTheoryFormulas::SUPERLONG NumTheoryFormulas::discreteLogBabyStepGiantStep(NumTheoryFormulas::SUPERLONG pRoot, NumTheoryFormulas::SUPERLONG val, NumTheoryFormulas::SUPERLONG mod)
+{
+	std::vector<SUPERLONG> small, big;
+
+	SUPERLONG bigN = (mod - 1).intSqrt();
+	SUPERLONG temp, inv;
+	for (SUPERLONG i = 1; i <= bigN; i++)
+	{
+		small.push_back(ModExponent(pRoot, i, mod));
+		temp = pRoot;
+		for (SUPERLONG j = 1; j < bigN; j++)
+		{
+			temp *= pRoot;
+		}
+		temp *= (bigN+1);
+		inv = MultInverse(temp, mod);
+		inv *= val;
+
+
+		big.push_back(ModExponent(inv, 1, mod));
+		small.push_back(ModExponent(pRoot, i, mod));
+	}
+
+	for(SUPERLONG i=0;i<=bigN;i++)
+	{
+		for (SUPERLONG j = 0; j <= bigN; j++)
+		{
+			if (big.at(i.toUnsignedLongLong()) == small.at(j.toUnsignedLongLong()))
+			{
+				return (i + (j*(bigN + 1)));
+			}
+		}
+	}
+
+
+
+}
 
 NumTheoryFormulas::NumTheoryFormulas()
 {
