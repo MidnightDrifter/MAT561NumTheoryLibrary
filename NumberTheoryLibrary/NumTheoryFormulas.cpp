@@ -450,14 +450,17 @@ NumTheoryFormulas::SUPERLONG NumTheoryFormulas::order(NumTheoryFormulas::SUPERLO
 
 std::vector<NumTheoryFormulas::SUPERLONG> NumTheoryFormulas::factorize(NumTheoryFormulas::SUPERLONG a)
 {
+	SUPERLONG aCopy = a;
 	std::vector<SUPERLONG> out;
 	SUPERLONG temp;
-	for (SUPERLONG i = 1; i <= a; i++)
+	for (SUPERLONG i = 2; i <= aCopy; i++)
 	{
-		temp = ModExponent(i, 1, a);
+		temp = ModExponent(i, 1, aCopy);
 		if (temp == 0)
 		{
+			aCopy = aCopy / i;
 			out.push_back(i);
+			i = 2;
 		}
 	}
 
@@ -531,16 +534,16 @@ NumTheoryFormulas::SUPERLONG NumTheoryFormulas::discreteLogBabyStepGiantStep(Num
 		small.push_back(ModExponent(pRoot, i, mod));
 	}
 
-	for(SUPERLONG i=0;i<=bigN;i++)
+for(auto i = big.begin(); i!=big.end();i++)
+{
+	for (auto j = small.begin(); j != small.end(); j++)
 	{
-		for (SUPERLONG j = 0; j <= bigN; j++)
+		if((*i) == (*j))
 		{
-			if (big.at(i.toUnsignedLongLong()) == small.at(j.toUnsignedLongLong()))
-			{
-				return (i + (j*(bigN + 1)));
-			}
+			return (*i) + (bigN + 1)*(*j);
 		}
 	}
+}
 
 
 
