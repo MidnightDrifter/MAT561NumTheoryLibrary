@@ -549,6 +549,42 @@ for(auto i = big.begin(); i!=big.end();i++)
 
 }
 
+
+std::string NumTheoryFormulas::readFileEncode(const char* filename)
+{
+	FILE* fp;
+	std::string out = "";
+	fp=fopen(filename, "rb");
+	//read in 4 bytes, char guaranteed to be 1 byte
+	char input[4];
+	int size = sizeof(char) * 4;
+	SUPERLONG encryptedText = 0;
+	SUPERLONG e( "101003231309");
+	SUPERLONG p("665728583607974639");
+	SUPERLONG q("3405292598950135985681");
+	out = fseek(fp, 0, SEEK_END)%4;
+	out += "\n";
+	rewind(fp);
+	if (fp)
+	{
+		while (!feof(fp))
+		{	
+			memset(input, 0, size);
+			fread(input, size, 1,fp);
+			encryptedText = input;
+			out += encrypt(encryptedText, e, p, q).toString() + "\n";
+		}
+
+	}
+	else
+	{
+		std::cout << "Error opening file." << std::endl;
+
+	}
+
+	return out;
+}
+
 NumTheoryFormulas::NumTheoryFormulas()
 {
 }
