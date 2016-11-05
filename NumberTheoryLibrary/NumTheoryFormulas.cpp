@@ -497,13 +497,13 @@ void NumTheoryFormulas::printFactors(NumTheoryFormulas::SUPERLONG a)
 	printFactors(factorize(a));
 }
 
-NumTheoryFormulas::SUPERLONG NumTheoryFormulas::discreteLogBruteForce(SUPERLONG coef,NumTheoryFormulas::SUPERLONG pRoot, NumTheoryFormulas::SUPERLONG val, NumTheoryFormulas::SUPERLONG mod)
+NumTheoryFormulas::SUPERLONG NumTheoryFormulas::discreteLogBruteForce(NumTheoryFormulas::SUPERLONG pRoot, NumTheoryFormulas::SUPERLONG val, NumTheoryFormulas::SUPERLONG mod)
 {
-	SUPERLONG valTemp = val * MultInverse(coef, mod);
+	
 	SUPERLONG out = -1;
 	for (SUPERLONG i = 1; i <= mod; i++)
 	{
-		if(valTemp==ModExponent(pRoot,i,mod))
+		if(val==ModExponent(pRoot,i,mod))
 		{
 			return i;
 		}
