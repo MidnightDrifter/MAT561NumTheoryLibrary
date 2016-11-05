@@ -175,8 +175,21 @@ std::cout << "Decrypted msg:  " << testDecryptMsg << std::endl;
 
 std::cout << "Mod exp(2016, 22545, 7663):  " << solver.ModExponent(2016, 22545, 7663).toString() << std::endl;
 
+//
+//NumTheoryFormulas::SUPERLONG in = 2;
+//for (int i = 1; i < 100; i++)
+//{
+//	in *= 2;
+//}
+//in -= 1;
+//
+//solver.printFactors(in);
+//
 
 
+std::cout << "Brute force:  "<< solver.discreteLogBruteForce(5, 489, 1093) << std::endl;
+std::cout << "Testing brute force.  ModExponent(5,100,1093) = " << solver.ModExponent(5, 100, 1093) << std::endl;
+//std::cout << "BSGS:  " << solver.discreteLogBabyStepGiantStep(5, 489, 1093) << std::endl;
 
 	return 0;
 }

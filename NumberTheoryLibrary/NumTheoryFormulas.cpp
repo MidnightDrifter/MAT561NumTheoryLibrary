@@ -450,14 +450,17 @@ NumTheoryFormulas::SUPERLONG NumTheoryFormulas::order(NumTheoryFormulas::SUPERLO
 
 std::vector<NumTheoryFormulas::SUPERLONG> NumTheoryFormulas::factorize(NumTheoryFormulas::SUPERLONG a)
 {
+	SUPERLONG aCopy = a;
 	std::vector<SUPERLONG> out;
 	SUPERLONG temp;
-	for (SUPERLONG i = 1; i <= a; i++)
+	for (SUPERLONG i = 2; i <= aCopy; i++)
 	{
-		temp = ModExponent(i, 1, a);
+		temp = ModExponent(i, 1, aCopy);
 		if (temp == 0)
 		{
+			aCopy = aCopy / i;
 			out.push_back(i);
+			i = 2;
 		}
 	}
 
@@ -532,19 +535,55 @@ NumTheoryFormulas::SUPERLONG NumTheoryFormulas::discreteLogBabyStepGiantStep(Num
 		small.push_back(ModExponent(pRoot, i, mod));
 	}
 
-	for(SUPERLONG i=0;i<=bigN;i++)
+for(auto i = big.begin(); i!=big.end();i++)
+{
+	for (auto j = small.begin(); j != small.end(); j++)
 	{
-		for (SUPERLONG j = 0; j <= bigN; j++)
+		if((*i) == (*j))
 		{
-			if (big.at(i.toUnsignedLongLong()) == small.at(j.toUnsignedLongLong()))
-			{
-				return (i + (j*(bigN + 1)));
-			}
+			return (*i) + (bigN + 1)*(*j);
 		}
 	}
+}
 
 
 
+}
+
+
+std::string NumTheoryFormulas::readFileEncode(const char* filename)
+{
+	FILE* fp;
+	std::string out = "";
+	fp=fopen(filename, "rb");
+	//read in 4 bytes, char guaranteed to be 1 byte
+	char input[4];
+	int size = sizeof(char) * 4;
+	SUPERLONG encryptedText = 0;
+	SUPERLONG e( "101003231309");
+	SUPERLONG p("665728583607974639");
+	SUPERLONG q("3405292598950135985681");
+	out = fseek(fp, 0, SEEK_END)%4;
+	out += "\n";
+	rewind(fp);
+	if (fp)
+	{
+		while (!feof(fp))
+		{	
+			memset(input, 0, size);
+			fread(input, size, 1,fp);
+			encryptedText = input;
+			out += encrypt(encryptedText, e, p, q).toString() + "\n";
+		}
+
+	}
+	else
+	{
+		std::cout << "Error opening file." << std::endl;
+
+	}
+
+	return out;
 }
 
 NumTheoryFormulas::NumTheoryFormulas()
