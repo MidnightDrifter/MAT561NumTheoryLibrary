@@ -37,7 +37,7 @@ public:
 	 void printFactors(std::vector<SUPERLONG> a);
 	 void printFactors(SUPERLONG a);
 
-	 SUPERLONG discreteLogBruteForce(SUPERLONG pRoot, SUPERLONG val, SUPERLONG mod);
+	 SUPERLONG discreteLogBruteForce(SUPERLONG coef,SUPERLONG pRoot, SUPERLONG val, SUPERLONG mod);
 
 	 SUPERLONG discreteLogBabyStepGiantStep(SUPERLONG pRoot, SUPERLONG val, SUPERLONG mod);
 	//SUPERLONG encrypt(const char* msg, BIG exp, BIG p, BIG q) { return encrypt(SUPERLONG(msg), SUPERLONG(exp), SUPERLONG(p), SUPERLONG(q)); }
