@@ -128,10 +128,10 @@ NumTheoryFormulas::SUPERLONG NumTheoryFormulas::ModExponent(NumTheoryFormulas::S
 NumTheoryFormulas::SUPERLONG b = base % mod;
 	NumTheoryFormulas::SUPERLONG e = exp;
 
-	long long testE, testB, testM;
-	testE = e.toLongLong();
-	testB = b.toLongLong();
-	testM = mod.toLongLong();
+	//long long testE, testB, testM;
+	//testE = e.toLongLong();
+	//testB = b.toLongLong();
+	//testM = mod.toLongLong();
 
 
 	if(mod ==1)// exp ==0)
@@ -150,10 +150,10 @@ NumTheoryFormulas::SUPERLONG b = base % mod;
 		{
 			//m *= (b%mod);
 			m = (m*b)%mod;
-			testM = m.toLongLong();
-			testB = b.toLongLong();
-			testE = e.toLongLong();
-			int qqq = 1;
+			//testM = m.toLongLong();
+		//	testB = b.toLongLong();
+			//testE = e.toLongLong();
+			//int qqq = 1;
 		
 		}
 		
@@ -164,7 +164,7 @@ NumTheoryFormulas::SUPERLONG b = base % mod;
 		//b %= mod;
 		//b *= (b%mod);
 	}
-	long long test = m.toLongLong();
+//	long long test = m.toLongLong();
 	return m;
 }
 
@@ -436,15 +436,20 @@ NumTheoryFormulas::SUPERLONG NumTheoryFormulas::order(NumTheoryFormulas::SUPERLO
 		return exitOnFailure(FAILPAIR(-1, false));
 	}
 
-	NumTheoryFormulas::SUPERLONG holder, out;
-	for (NumTheoryFormulas::SUPERLONG i = 1; i <= base; i++)
+	NumTheoryFormulas::SUPERLONG holder, out(-1);
+	for (NumTheoryFormulas::SUPERLONG i = 1; i < base; i++)
 	{
-		holder = ModExponent(i, 1, base);
-		if (holder == 0 && (out = ModExponent(a,i,base))==0)
-		{
-			return out;
-		}
+		//holder = ModExponent(i, 1, base);
+	//	if (holder == 0)
+	//	{
+			(out = ModExponent(a, i, base));
+			if (out == 1)
+			{
+				return i;
+			}
+	//	}
 	}
+	return -1;
 }
 
 
@@ -551,30 +556,54 @@ for(auto i = big.begin(); i!=big.end();i++)
 }
 
 
-std::string NumTheoryFormulas::readFileEncode(const char* filename)
+std::string NumTheoryFormulas::readFileEncode(const char* filename, const char* outfile)
 {
 	FILE* fp;
 	std::string out = "";
 	fp=fopen(filename, "rb");
+	if (fp)
+	{
 	//read in 4 bytes, char guaranteed to be 1 byte
-	char input[4];
-	int size = sizeof(char) * 4;
+	//char* input= new char[4];
+		char input[4];
+		unsigned long long uInt, uHolder;
+		int size = sizeof(char) * 4;
+		int uSize = sizeof(unsigned int) * 4;
 	SUPERLONG encryptedText = 0;
 	SUPERLONG e( "101003231309");
 	SUPERLONG p("665728583607974639");
 	SUPERLONG q("3405292598950135985681");
-	out = fseek(fp, 0, SEEK_END)%4;
+	int offset = (fseek(fp, 0, SEEK_END)) % 4;
+	out += offset;
 	out += "\n";
 	rewind(fp);
-	if (fp)
-	{
-		while (!feof(fp))
-		{	
+	int charsRead = -1;
+	//unsigned long long test;
+	
+
+		while (feof(fp)==0 && ferror(fp)==0 && charsRead!=0)
+		{
+			charsRead = 0;
 			memset(input, 0, size);
-			fread(input, size, 1,fp);
-			encryptedText = input;
-			out += encrypt(encryptedText, e, p, q).toString() + "\n";
-		}
+			uInt &= 0;
+			charsRead = fread(input, sizeof(char), 4,fp);
+			if (charsRead>0)
+			{
+				//test = input;
+				for (int i = 0; i < 8; i++)
+				{
+					uHolder &= 0;
+					uHolder = input[i];
+					uHolder <<= 8 * (7 - i);
+					uInt += uHolder;
+				}
+				
+				
+				encryptedText = uInt;
+				//test = encryptedText.toLongLong();
+				out += encrypt(encryptedText, e, p, q).toString() + "\n";
+			}
+			}
 
 	}
 	else
@@ -582,6 +611,11 @@ std::string NumTheoryFormulas::readFileEncode(const char* filename)
 		std::cout << "Error opening file." << std::endl;
 
 	}
+	
+	std::ofstream o(outfile, std::ofstream::out);
+	o << out;
+	
+
 
 	return out;
 }

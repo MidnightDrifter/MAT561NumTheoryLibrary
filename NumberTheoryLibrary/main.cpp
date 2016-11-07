@@ -129,7 +129,7 @@ int main(int argc, char *argv[])
 	
 	//std::string asdf;
 	//asdf = solver.ModExponent(23, 19, 100).toString();
-
+/*
 NumTheoryFormulas::SUPERLONG out1, out2, out3, p, q, e,d, decryp1, decryp2, decryp3, encryp1, encryp2, encryp3;
 out1="03182516201507180116";
 out2 = "0825313031441819";
@@ -174,7 +174,7 @@ std::cout << "Decrypted msg:  " << testDecryptMsg << std::endl;
 
 
 std::cout << "Mod exp(2016, 22545, 7663):  " << solver.ModExponent(2016, 22545, 7663).toString() << std::endl;
-
+*/
 //
 //NumTheoryFormulas::SUPERLONG in = 2;
 //for (int i = 1; i < 100; i++)
@@ -187,9 +187,20 @@ std::cout << "Mod exp(2016, 22545, 7663):  " << solver.ModExponent(2016, 22545, 
 //
 
 
-std::cout << "Brute force:  "<< solver.discreteLogBruteForce(5, 489, 1093) << std::endl;
-std::cout << "Testing brute force.  ModExponent(5,100,1093) = " << solver.ModExponent(5, 100, 1093) << std::endl;
+//std::cout << "Brute force:  "<< solver.discreteLogBruteForce(5, 489, 1093) << std::endl;
+//std::cout << "Testing brute force.  ModExponent(5,100,1093) = " << solver.ModExponent(5, 100, 1093) << std::endl;
 //std::cout << "BSGS:  " << solver.discreteLogBabyStepGiantStep(5, 489, 1093) << std::endl;
+
+//std::cout << "I(26), I(43):  " << solver.discreteLogBruteForce(7, 26, 71) << ", " << solver.discreteLogBruteForce(2, 43, 59) << std::endl;
+//int test = 'c';
+//std::cout << test << std::endl;  //Does automatically convert char -> ASCII code
+
+//std::string t = solver.readFileEncode("Text7.docx", "Text7encrypted");
+//std::string p = solver.readFileEncode("Pdf7.pdf", "PDF7encrypted");
+NumTheoryFormulas::SUPERLONG a,b,c,d,e,f;
+
+a = solver.order(2, 5);
+std::cout << a.toString();
 
 	return 0;
 }
