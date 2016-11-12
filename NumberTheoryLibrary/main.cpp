@@ -212,4 +212,28 @@ std::cout << "Mod exp(2016, 22545, 7663):  " << solver.ModExponent(2016, 22545, 
 	}
 	*/
 	return 0;
+
+	NumTheoryFormulas::SUPERLONG hugeNumber = "1000000";
+	std::vector<NumTheoryFormulas::FAILPAIR> lotsOfNumbers;  //For Sieve
+	std::vector<NumTheoryFormulas::SUPERLONG> primes;  //For Sieve
+	primes.push_back(2);
+	lotsOfNumbers.push_back(NumTheoryFormulas::FAILPAIR(2,true));  //Push back number, isPrime
+	for (NumTheoryFormulas::SUPERLONG i = 2; i < hugeNumber; i++)
+	{
+		if (lotsOfNumbers.at(i.toLongLong()).second)
+		{
+			if (i == lotsOfNumbers.at(i.toLongLong()).first)
+			{
+				primes.push_back(i);
+			}
+
+			for (NumTheoryFormulas::SUPERLONG j = i; j < hugeNumber; j += i)
+			{
+				lotsOfNumbers.at(i.toLongLong()).second = false;
+			}
+
+		}
+	}
+
+
 }
