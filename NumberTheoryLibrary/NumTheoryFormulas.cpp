@@ -559,16 +559,16 @@ for(auto i = big.begin(); i!=big.end();i++)
 std::string NumTheoryFormulas::readFileEncode(const char* filename, const char* outfile)
 {
 	FILE* fp;
-	std::string out = "";
+	std::string out;
 	fp=fopen(filename, "rb");
 	if (fp)
 	{
 	//read in 4 bytes, char guaranteed to be 1 byte
 	//char* input= new char[4];
-		char input[4];
+		char input[8];
 		unsigned long long uInt, uHolder;
-		int size = sizeof(char) * 4;
-		int uSize = sizeof(unsigned int) * 4;
+		int size = sizeof(char) * 8;
+		int uSize = sizeof(unsigned int) * 8;
 	SUPERLONG encryptedText = 0;
 	SUPERLONG e( "101003231309");
 	SUPERLONG p("665728583607974639");
@@ -586,7 +586,7 @@ std::string NumTheoryFormulas::readFileEncode(const char* filename, const char* 
 			charsRead = 0;
 			memset(input, 0, size);
 			uInt &= 0;
-			charsRead = fread(input, sizeof(char), 4,fp);
+			charsRead = fread(input, sizeof(char), 8,fp);
 			if (charsRead>0)
 			{
 				//test = input;

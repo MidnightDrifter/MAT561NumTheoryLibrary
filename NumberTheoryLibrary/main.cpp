@@ -18,7 +18,7 @@ int main(int argc, char *argv[])
 	//
 	//	//mpz_class answer = 52;
 	//	int answer = 1;
-		NumTheoryFormulas solver = NumTheoryFormulas();
+	NumTheoryFormulas solver = NumTheoryFormulas();
 	//
 	//	solver.EuclideanAlgorithm(NumTheoryFormulas::SUPERLONG(3215), NumTheoryFormulas::SUPERLONG(4761));
 	//	NumTheoryFormulas::SUPERLONG modexp = solver.ModExponent(NumTheoryFormulas::SUPERLONG(3546789), NumTheoryFormulas::SUPERLONG(1254865), NumTheoryFormulas::SUPERLONG(13315791));
@@ -126,7 +126,7 @@ int main(int argc, char *argv[])
 
 	//std::cout << out1 << out2 << out3 << out4 << out5 << std::endl;
 
-	
+
 	//std::string asdf;
 	//asdf = solver.ModExponent(23, 19, 100).toString();
 /*
@@ -195,12 +195,21 @@ std::cout << "Mod exp(2016, 22545, 7663):  " << solver.ModExponent(2016, 22545, 
 //int test = 'c';
 //std::cout << test << std::endl;  //Does automatically convert char -> ASCII code
 
-//std::string t = solver.readFileEncode("Text7.docx", "Text7encrypted");
-//std::string p = solver.readFileEncode("Pdf7.pdf", "PDF7encrypted");
-NumTheoryFormulas::SUPERLONG a,b,c,d,e,f;
+	std::string t = solver.readFileEncode("Text7.docx", "Text7encrypted8bytes");
+	std::string p = solver.readFileEncode("Pdf7.pdf", "PDF7encrypted8bytes");
+	//NumTheoryFormulas::SUPERLONG a,b,c,d,e,f;
 
-a = solver.order(2, 5);
-std::cout << a.toString();
+	//a = solver.order(2, 5);
+	//std::cout << a.toString();
 
+/*
+	NumTheoryFormulas::SUPERLONG a[10] = {  3136,1939,2676, 48, 1961, 415, 2783, 3122, 2088, 2477  };
+	NumTheoryFormulas::SUPERLONG t;
+	for (int i = 0; i < 3; i++)
+	{
+	//	t = solver.ModExponent(3, a[i], 3137);
+		std::cout <<  solver.ModExponentCoef(2016,3,a[i],  3137).toString() << std::endl;
+	}
+	*/
 	return 0;
 }
