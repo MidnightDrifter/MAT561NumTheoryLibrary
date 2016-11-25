@@ -195,8 +195,8 @@ std::cout << "Mod exp(2016, 22545, 7663):  " << solver.ModExponent(2016, 22545, 
 //int test = 'c';
 //std::cout << test << std::endl;  //Does automatically convert char -> ASCII code
 
-	std::string t = solver.readFileEncode("Text7.docx", "Text7encrypted8bytes");
-	std::string p = solver.readFileEncode("Pdf7.pdf", "PDF7encrypted8bytes");
+	std::string t = solver.readFileEncode("Text7.docx", "Text7encrypted8bytesv2");
+	std::string p = solver.readFileEncode("Pdf7.pdf", "PDF7encrypted8bytesv2");
 	//NumTheoryFormulas::SUPERLONG a,b,c,d,e,f;
 
 	//a = solver.order(2, 5);
