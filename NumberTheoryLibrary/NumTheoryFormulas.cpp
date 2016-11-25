@@ -669,6 +669,102 @@ std::string NumTheoryFormulas::readFileEncode(const char* filename, const char* 
 
 }
 
+int NumTheoryFormulas::strongFermatTest(NumTheoryFormulas::SUPERLONG num, NumTheoryFormulas::SUPERLONG base)
+{
+	SUPERLONG n = num - 1;
+	SUPERLONG N = num-1;
+	SUPERLONG k = 0;
+	SUPERLONG m = 0;
+	SUPERLONG exponent = 1;
+
+	while (n%2 == 0)
+	{
+		n = n / 2;
+		k++;
+	}
+
+
+	exponent = n;
+	//int testK = k.toInt();
+	//int testM = exponent.toInt();
+	if (ModExponent(base, exponent, num) == 1 || ModExponent(base, exponent, num) == (N))
+	{
+		return 1;
+	}
+
+	else
+	{
+		for (SUPERLONG i = 1; i < k; i++)
+		{
+			exponent = exponent * 2;
+			if (ModExponent(base, exponent, num) == N)
+			{
+				return 1;
+			}
+		}
+
+		return 0;
+	}
+
+}
+
+int NumTheoryFormulas::weakFermatTest(NumTheoryFormulas::SUPERLONG num, NumTheoryFormulas::SUPERLONG base)
+{
+	if (ModExponent(base, num - 1, num) == 1)
+	{
+		return 1;
+	}
+
+	return 0;
+}
+
+NumTheoryFormulas::SUPERLONG NumTheoryFormulas::fermatFactorization(NumTheoryFormulas::SUPERLONG num)
+{
+	SUPERLONG startX = num.intSqrt()+1;  //This should return the FLOOR of the square root, so add 1
+
+	SUPERLONG y = ((startX*startX) - num).intSqrt();
+
+	while ((startX * startX) - (y * y) != num)
+	{
+		startX += 1;
+		y = ((startX*startX) - num).intSqrt();
+	}
+
+	return startX;
+
+}
+
+
+int NumTheoryFormulas::millerRabinTest(NumTheoryFormulas::SUPERLONG num, NumTheoryFormulas::SUPERLONG numTests)
+{
+	std::vector<SUPERLONG> testBases(numTests.toUnsignedLongLong());
+	SUPERLONG temp =InfInt(rand()) % (num - 4) + 2;
+	while (testBases.size() < numTests.toUnsignedLongLong())
+	{
+		for (int i = 0; i < testBases.size(); i++)
+		{
+			if (temp == testBases[i])
+			{
+				temp = InfInt(rand()) % (num - 4) + 2;
+				i = 0;
+			}
+		}
+
+		testBases.push_back(temp);
+	}
+
+
+	for (int i = 0; i < testBases.size(); i++)
+	{
+		if (strongFermatTest(num, testBases[i]) == 0)
+		{
+			return 0;
+		}
+	}
+	return 1;
+
+}
+
 NumTheoryFormulas::NumTheoryFormulas()
 {
 }

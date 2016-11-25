@@ -48,6 +48,15 @@ public:
 	 SUPERLONG discreteLogBruteForce(SUPERLONG pRoot, SUPERLONG val, SUPERLONG mod);
 
 	 SUPERLONG discreteLogBabyStepGiantStep(SUPERLONG pRoot, SUPERLONG val, SUPERLONG mod);
+	 int strongFermatTest(SUPERLONG num, SUPERLONG base);
+	 int weakFermatTest(SUPERLONG num, SUPERLONG base);
+	 int millerRabinTest(SUPERLONG num,  SUPERLONG numTests);
+
+
+	 SUPERLONG fermatFactorization(SUPERLONG num);
+
+
+
 	//SUPERLONG encrypt(const char* msg, BIG exp, BIG p, BIG q) { return encrypt(SUPERLONG(msg), SUPERLONG(exp), SUPERLONG(p), SUPERLONG(q)); }
 	// FAILPAIR decrypt(const char* msg, BIG exp, BIG p, BIG q) { return decrypt(SUPERLONG(msg), SUPERLONG(exp), SUPERLONG(p), SUPERLONG(q)); }
 
