@@ -718,22 +718,78 @@ int NumTheoryFormulas::weakFermatTest(NumTheoryFormulas::SUPERLONG num, NumTheor
 	return 0;
 }
 
-NumTheoryFormulas::SUPERLONG NumTheoryFormulas::fermatFactorization(NumTheoryFormulas::SUPERLONG num)
+std::pair< NumTheoryFormulas::SUPERLONG, NumTheoryFormulas::SUPERLONG> NumTheoryFormulas::fermatFactorization(NumTheoryFormulas::SUPERLONG num)
 {
-	SUPERLONG startX = num.intSqrt()+1;  //This should return the FLOOR of the square root, so add 1
-
-	SUPERLONG y = ((startX*startX) - num).intSqrt();
-
-	while ((startX * startX) - (y * y) != num)
+	SUPERLONG n = num;
+	SUPERLONG startX = n.intSqrt()+1;  //This should return the FLOOR of the square root, so add 1
+	std::cout << "X0 = " << startX.toString() << std::endl;
+	if (startX * startX == n)
 	{
-		startX += 1;
-		y = ((startX*startX) - num).intSqrt();
+		return std::pair<SUPERLONG, SUPERLONG>(startX, 0);
 	}
 
-	return startX;
+	else {
+		//startX += 1;
 
+		SUPERLONG numRounds = 1;
+
+		SUPERLONG y = ((startX*startX) - n).intSqrt();
+
+		while (y*y != (startX*startX - n))//&& GCD(startX+y,n) != startX+y)
+		{
+			startX += 1;
+			y = ((startX*startX) - n).intSqrt();
+			numRounds++;
+		}
+
+		return std::pair<SUPERLONG, SUPERLONG>( startX+y,numRounds);
+	}
 }
 
+NumTheoryFormulas::SUPERLONG NumTheoryFormulas::strongFermatStyleFactorization(NumTheoryFormulas::SUPERLONG base, NumTheoryFormulas::SUPERLONG powerOfTwo, NumTheoryFormulas::SUPERLONG s, NumTheoryFormulas::SUPERLONG num)
+{
+	
+	SUPERLONG N = num ;
+	SUPERLONG k =powerOfTwo;
+	SUPERLONG m = 0;
+	SUPERLONG exponent = s;
+
+
+
+
+	//exponent = n;
+	//int testK = k.toInt();
+	//int testM = exponent.toInt();
+	
+	
+	std::cout << "Output at step 0:  " << ModExponent(base, exponent, num) << std::endl;
+	
+	if (ModExponent(base, exponent, num) == 1)// || ModExponent(base, exponent, num) == (N))
+	{
+		return GCD(power(base, exponent) - 1, num);
+	}
+
+	else
+	{
+		for (SUPERLONG i = 1; i < k; i++)
+		{
+			//std::cout << "Output at step " << i.toString() << ":  " << ModExponent(base, exponent, num) << std::endl;
+			exponent = exponent * 2;
+
+			std::cout << "Output at step " << (i).toString() << ":  " << ModExponent(base, exponent, num) << std::endl;
+			if (ModExponent(base, exponent, num)  == 1)
+			{
+				if (ModExponent(base, (exponent / 2), num) != (N - 1))
+				{
+					return GCD(ModExponent(base,exponent/2,num) - 1, num);
+				}
+			}
+		}
+
+		return 1;
+	}
+
+}
 
 int NumTheoryFormulas::millerRabinTest(NumTheoryFormulas::SUPERLONG num, NumTheoryFormulas::SUPERLONG numTests)
 {
@@ -763,6 +819,21 @@ int NumTheoryFormulas::millerRabinTest(NumTheoryFormulas::SUPERLONG num, NumTheo
 	}
 	return 1;
 
+}
+
+NumTheoryFormulas::SUPERLONG NumTheoryFormulas::FactExpModExponent(NumTheoryFormulas::SUPERLONG num, NumTheoryFormulas::SUPERLONG factExp, NumTheoryFormulas::SUPERLONG mod)
+{
+	SUPERLONG out = ModExponent(num,1,mod);
+	SUPERLONG temp;
+	for (SUPERLONG i = 1; i <= factExp; i++)
+	{
+		temp = out;
+		out = ModExponent(temp, i, mod);
+	//	std::cout << "Value at step " << i.toString() << ":  " << out.toString() << std::endl;
+	}
+
+//	std::cout << out.toString() << std::endl;
+	return out;
 }
 
 NumTheoryFormulas::NumTheoryFormulas()

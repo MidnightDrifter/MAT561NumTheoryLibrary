@@ -52,8 +52,15 @@ public:
 	 int weakFermatTest(SUPERLONG num, SUPERLONG base);
 	 int millerRabinTest(SUPERLONG num,  SUPERLONG numTests);
 
+	 SUPERLONG FactExpModExponent(SUPERLONG num, SUPERLONG factorialExp, SUPERLONG mod);
 
-	 SUPERLONG fermatFactorization(SUPERLONG num);
+	 std::pair<SUPERLONG,SUPERLONG> fermatFactorization(SUPERLONG num);
+
+	 SUPERLONG strongFermatStyleFactorization(SUPERLONG base, SUPERLONG powerOfTwo, SUPERLONG s, SUPERLONG num);
+
+	 SUPERLONG power(SUPERLONG base, SUPERLONG power) { SUPERLONG out = 1;  for (SUPERLONG i = 0; i < power; i++) { out *= base; }  return out; }
+
+	 SUPERLONG factorial(SUPERLONG f) { SUPERLONG out = 2;  for (SUPERLONG i = 3; i <= f; i++) { out *= i; }  return out; }
 
 
 
