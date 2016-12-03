@@ -195,6 +195,17 @@ std::cout << "Mod exp(2016, 22545, 7663):  " << solver.ModExponent(2016, 22545, 
 //int test = 'c';
 //std::cout << test << std::endl;  //Does automatically convert char -> ASCII code
 
+
+std::vector<NumTheoryFormulas::SUPERLONG> printing = solver.squareRootContinuedFraction(1906081);
+std::cout << "The continued fraction of 3 is:  ";
+for (auto i : printing)
+{
+	std::cout << i.toString() << ", ";
+}
+std::cout << std::endl;
+
+std::cout << "It repeats at step # " << printing.size() << std::endl;
+
 	std::string t = solver.readFileEncode("Text7.docx", "Text7encrypted8bytesv2");
 	std::string p = solver.readFileEncode("Pdf7.pdf", "PDF7encrypted8bytesv2");
 	//NumTheoryFormulas::SUPERLONG a,b,c,d,e,f;
