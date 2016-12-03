@@ -23,7 +23,7 @@ public:
 		SUPERLONG ModExponent(SUPERLONG base, SUPERLONG exp, SUPERLONG mod);
 		SUPERLONG ModExponentCoef(SUPERLONG coef, SUPERLONG base, SUPERLONG exp, SUPERLONG mod) { SUPERLONG t = ModExponent(base, exp, mod);  SUPERLONG s = ModExponent(coef, 1, mod);    return ModExponent(t*s, 1, mod); }
 		SUPERLONG MultInverse(SUPERLONG a, SUPERLONG mod);
-	 SUPERLONG CRT(int numEquations, SUPERLONG equations[][2]);
+	 SUPERLONG CRT(int numEquations, std::vector<std::vector<SUPERLONG>> eqns);
 
 
 	 std::pair<SUPERLONG, SUPERLONG> encryptElGamo(SUPERLONG msg, SUPERLONG pRoot, SUPERLONG prime, SUPERLONG b, SUPERLONG ab) { return std::pair<SUPERLONG, SUPERLONG>(ModExponent(pRoot, b, prime), ModExponentCoef(msg, pRoot, ab, prime)); }

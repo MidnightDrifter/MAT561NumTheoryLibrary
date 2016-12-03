@@ -322,7 +322,7 @@ NumTheoryFormulas::SUPERLONG NumTheoryFormulas::MultInverse(NumTheoryFormulas::S
 
 }
 
-NumTheoryFormulas::SUPERLONG NumTheoryFormulas::CRT( int numEqns, NumTheoryFormulas::SUPERLONG eqns[][2])
+NumTheoryFormulas::SUPERLONG NumTheoryFormulas::CRT( int numEqns, std::vector<std::vector< NumTheoryFormulas::SUPERLONG>> eqns)
 {
 	NumTheoryFormulas::SUPERLONG bigM = eqns[0][1];
 	long long bM = bigM.toLongLong();
