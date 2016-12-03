@@ -81,5 +81,9 @@ public:
 
 	//Redo ModExponent--params aren't being passed?
 
+
+	 std::vector<SUPERLONG> squareRootContinuedFraction(SUPERLONG num);
+	 std::vector<std::pair<SUPERLONG,SUPERLONG>> squareRootContinuedFractionConvergences(std::vector<SUPERLONG> cf);
+
 };
 

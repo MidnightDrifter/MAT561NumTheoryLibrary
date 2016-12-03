@@ -836,6 +836,53 @@ NumTheoryFormulas::SUPERLONG NumTheoryFormulas::FactExpModExponent(NumTheoryForm
 	return out;
 }
 
+
+std::vector<NumTheoryFormulas::SUPERLONG> NumTheoryFormulas::squareRootContinuedFraction(NumTheoryFormulas::SUPERLONG num)
+{
+	std::vector<SUPERLONG> out;
+	out.push_back(num.intSqrt());
+
+	SUPERLONG A, B, x, a;
+	A = 0;
+	B = 1;
+	x = a = num.intSqrt();
+
+	do
+	{
+		A = a*B - A;
+		B = (num - A*A) / B;
+		x = (A + num.intSqrt()) / B;
+		a = x;
+		out.push_back(a);
+	} while (B != 1);
+
+	return out;
+
+}
+
+std::vector < std::pair < NumTheoryFormulas::SUPERLONG, NumTheoryFormulas::SUPERLONG> > NumTheoryFormulas::squareRootContinuedFractionConvergences(std::vector<NumTheoryFormulas::SUPERLONG> cf)
+{
+	std::vector<std::pair<SUPERLONG, SUPERLONG>> out;
+	std::pair<SUPERLONG, SUPERLONG> input, p1, p2;
+	p1.first = p2.second = 0;
+	p1.second = p2.first = 1;
+
+	for (auto i : cf)
+	{
+		input.first = (i * p1.second) + p1.first;
+		input.second = (i*p2.second) + p2.first;
+		out.push_back(input);
+
+		p1.second = p1.first;
+		p1.first = input.first;
+		p2.second = p2.first;
+		p2.first = input.second;
+
+	}
+	return out;
+}
+
+
 NumTheoryFormulas::NumTheoryFormulas()
 {
 }
