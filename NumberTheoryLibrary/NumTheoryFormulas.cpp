@@ -669,51 +669,172 @@ std::string NumTheoryFormulas::readFileEncode(const char* filename, const char* 
 
 }
 
-std::vector<NumTheoryFormulas::SUPERLONG> NumTheoryFormulas::squareRootContinuedFraction(NumTheoryFormulas::SUPERLONG num)
+int NumTheoryFormulas::strongFermatTest(NumTheoryFormulas::SUPERLONG num, NumTheoryFormulas::SUPERLONG base)
 {
-	std::vector<SUPERLONG> out;
-	out.push_back(num.intSqrt());
+	SUPERLONG n = num - 1;
+	SUPERLONG N = num-1;
+	SUPERLONG k = 0;
+	SUPERLONG m = 0;
+	SUPERLONG exponent = 1;
 
-	SUPERLONG A, B, x, a;
-	A = 0;
-	B = 1;
-	x = a = num.intSqrt();
-
-	do
+	while (n%2 == 0)
 	{
-		A = a*B - A;
-		B = (num - A*A) / B;
-		x = (A + num.intSqrt()) / B;
-		a = x;
-		out.push_back(a);
-	} while (B != 1);
-
-	return out;
-
-}
-
-std::vector < std::pair < NumTheoryFormulas::SUPERLONG, NumTheoryFormulas::SUPERLONG> > NumTheoryFormulas::squareRootContinuedFractionConvergences(std::vector<NumTheoryFormulas::SUPERLONG> cf)
-{
-	std::vector<std::pair<SUPERLONG, SUPERLONG>> out;
-	std::pair<SUPERLONG, SUPERLONG> input, p1, p2;
-	p1.first = p2.second = 0;
-	p1.second = p2.first = 1;
-
-	for (auto i : cf)
-	{
-		input.first = (i * p1.second) + p1.first;
-		input.second = (i*p2.second) + p2.first;
-		out.push_back(input);
-		
-		p1.second = p1.first;
-		p1.first = input.first;
-		p2.second = p2.first;
-		p2.first = input.second;
-
+		n = n / 2;
+		k++;
 	}
-	return out;
+
+
+	exponent = n;
+	//int testK = k.toInt();
+	//int testM = exponent.toInt();
+	if (ModExponent(base, exponent, num) == 1 || ModExponent(base, exponent, num) == (N))
+	{
+		return 1;
+	}
+
+	else
+	{
+		for (SUPERLONG i = 1; i < k; i++)
+		{
+			exponent = exponent * 2;
+			if (ModExponent(base, exponent, num) == N)
+			{
+				return 1;
+			}
+		}
+
+		return 0;
+	}
+
 }
 
+int NumTheoryFormulas::weakFermatTest(NumTheoryFormulas::SUPERLONG num, NumTheoryFormulas::SUPERLONG base)
+{
+	if (ModExponent(base, num - 1, num) == 1)
+	{
+		return 1;
+	}
+
+	return 0;
+}
+
+std::pair< NumTheoryFormulas::SUPERLONG, NumTheoryFormulas::SUPERLONG> NumTheoryFormulas::fermatFactorization(NumTheoryFormulas::SUPERLONG num)
+{
+	SUPERLONG n = num;
+	SUPERLONG startX = n.intSqrt()+1;  //This should return the FLOOR of the square root, so add 1
+	std::cout << "X0 = " << startX.toString() << std::endl;
+	if (startX * startX == n)
+	{
+		return std::pair<SUPERLONG, SUPERLONG>(startX, 0);
+	}
+
+	else {
+		//startX += 1;
+
+		SUPERLONG numRounds = 1;
+
+		SUPERLONG y = ((startX*startX) - n).intSqrt();
+
+		while (y*y != (startX*startX - n))//&& GCD(startX+y,n) != startX+y)
+		{
+			startX += 1;
+			y = ((startX*startX) - n).intSqrt();
+			numRounds++;
+		}
+
+		return std::pair<SUPERLONG, SUPERLONG>( startX+y,numRounds);
+	}
+}
+
+NumTheoryFormulas::SUPERLONG NumTheoryFormulas::strongFermatStyleFactorization(NumTheoryFormulas::SUPERLONG base, NumTheoryFormulas::SUPERLONG powerOfTwo, NumTheoryFormulas::SUPERLONG s, NumTheoryFormulas::SUPERLONG num)
+{
+	
+	SUPERLONG N = num ;
+	SUPERLONG k =powerOfTwo;
+	SUPERLONG m = 0;
+	SUPERLONG exponent = s;
+
+
+
+
+	//exponent = n;
+	//int testK = k.toInt();
+	//int testM = exponent.toInt();
+	
+	
+	std::cout << "Output at step 0:  " << ModExponent(base, exponent, num) << std::endl;
+	
+	if (ModExponent(base, exponent, num) == 1)// || ModExponent(base, exponent, num) == (N))
+	{
+		return GCD(power(base, exponent) - 1, num);
+	}
+
+	else
+	{
+		for (SUPERLONG i = 1; i < k; i++)
+		{
+			//std::cout << "Output at step " << i.toString() << ":  " << ModExponent(base, exponent, num) << std::endl;
+			exponent = exponent * 2;
+
+			std::cout << "Output at step " << (i).toString() << ":  " << ModExponent(base, exponent, num) << std::endl;
+			if (ModExponent(base, exponent, num)  == 1)
+			{
+				if (ModExponent(base, (exponent / 2), num) != (N - 1))
+				{
+					return GCD(ModExponent(base,exponent/2,num) - 1, num);
+				}
+			}
+		}
+
+		return 1;
+	}
+
+}
+
+int NumTheoryFormulas::millerRabinTest(NumTheoryFormulas::SUPERLONG num, NumTheoryFormulas::SUPERLONG numTests)
+{
+	std::vector<SUPERLONG> testBases(numTests.toUnsignedLongLong());
+	SUPERLONG temp =InfInt(rand()) % (num - 4) + 2;
+	while (testBases.size() < numTests.toUnsignedLongLong())
+	{
+		for (int i = 0; i < testBases.size(); i++)
+		{
+			if (temp == testBases[i])
+			{
+				temp = InfInt(rand()) % (num - 4) + 2;
+				i = 0;
+			}
+		}
+
+		testBases.push_back(temp);
+	}
+
+
+	for (int i = 0; i < testBases.size(); i++)
+	{
+		if (strongFermatTest(num, testBases[i]) == 0)
+		{
+			return 0;
+		}
+	}
+	return 1;
+
+}
+
+NumTheoryFormulas::SUPERLONG NumTheoryFormulas::FactExpModExponent(NumTheoryFormulas::SUPERLONG num, NumTheoryFormulas::SUPERLONG factExp, NumTheoryFormulas::SUPERLONG mod)
+{
+	SUPERLONG out = ModExponent(num,1,mod);
+	SUPERLONG temp;
+	for (SUPERLONG i = 1; i <= factExp; i++)
+	{
+		temp = out;
+		out = ModExponent(temp, i, mod);
+	//	std::cout << "Value at step " << i.toString() << ":  " << out.toString() << std::endl;
+	}
+
+//	std::cout << out.toString() << std::endl;
+	return out;
+}
 
 NumTheoryFormulas::NumTheoryFormulas()
 {

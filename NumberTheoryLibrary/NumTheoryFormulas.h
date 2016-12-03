@@ -48,6 +48,22 @@ public:
 	 SUPERLONG discreteLogBruteForce(SUPERLONG pRoot, SUPERLONG val, SUPERLONG mod);
 
 	 SUPERLONG discreteLogBabyStepGiantStep(SUPERLONG pRoot, SUPERLONG val, SUPERLONG mod);
+	 int strongFermatTest(SUPERLONG num, SUPERLONG base);
+	 int weakFermatTest(SUPERLONG num, SUPERLONG base);
+	 int millerRabinTest(SUPERLONG num,  SUPERLONG numTests);
+
+	 SUPERLONG FactExpModExponent(SUPERLONG num, SUPERLONG factorialExp, SUPERLONG mod);
+
+	 std::pair<SUPERLONG,SUPERLONG> fermatFactorization(SUPERLONG num);
+
+	 SUPERLONG strongFermatStyleFactorization(SUPERLONG base, SUPERLONG powerOfTwo, SUPERLONG s, SUPERLONG num);
+
+	 SUPERLONG power(SUPERLONG base, SUPERLONG power) { SUPERLONG out = 1;  for (SUPERLONG i = 0; i < power; i++) { out *= base; }  return out; }
+
+	 SUPERLONG factorial(SUPERLONG f) { SUPERLONG out = 2;  for (SUPERLONG i = 3; i <= f; i++) { out *= i; }  return out; }
+
+
+
 	//SUPERLONG encrypt(const char* msg, BIG exp, BIG p, BIG q) { return encrypt(SUPERLONG(msg), SUPERLONG(exp), SUPERLONG(p), SUPERLONG(q)); }
 	// FAILPAIR decrypt(const char* msg, BIG exp, BIG p, BIG q) { return decrypt(SUPERLONG(msg), SUPERLONG(exp), SUPERLONG(p), SUPERLONG(q)); }
 
