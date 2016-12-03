@@ -882,7 +882,16 @@ std::vector < std::pair < NumTheoryFormulas::SUPERLONG, NumTheoryFormulas::SUPER
 	return out;
 }
 
+std::vector<NumTheoryFormulas::SUPERLONG> NumTheoryFormulas::squareRootContinuedFractionsConvergenceSquares(std::vector<std::pair<NumTheoryFormulas::SUPERLONG, NumTheoryFormulas::SUPERLONG>> convergences, NumTheoryFormulas::SUPERLONG num)
+{
+	std::vector<SUPERLONG> out;
 
+	for (auto i : convergences)
+	{
+		out.push_back((i.first * i.first) - (num * i.second * i.second));
+	}
+	return out;
+}
 NumTheoryFormulas::NumTheoryFormulas()
 {
 }
