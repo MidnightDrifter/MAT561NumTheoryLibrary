@@ -195,9 +195,9 @@ std::cout << "Mod exp(2016, 22545, 7663):  " << solver.ModExponent(2016, 22545, 
 //int test = 'c';
 //std::cout << test << std::endl;  //Does automatically convert char -> ASCII code
 
-NumTheoryFormulas::SUPERLONG num = "1906081";
-std::vector<NumTheoryFormulas::SUPERLONG> printing = solver.squareRootContinuedFraction(1906081);
-std::cout << "The continued fraction of 1906081 is:  ";
+NumTheoryFormulas::SUPERLONG num = "226687";
+std::vector<NumTheoryFormulas::SUPERLONG> printing = solver.squareRootContinuedFraction(num);
+std::cout << "The continued fraction of "<< num.toString()<<" is:  ";
 for (auto i : printing)
 {
 	std::cout << i.toString() << ", ";
@@ -214,8 +214,8 @@ for (int i = 0; i < 10; i++)
 	std::cout << "(P" << i << " , Q" << i << ") = (" << convergences[i].first.toString() << ", " << convergences[i].second.toString() << ")" << std::endl;
 }
 
-std::cout << std::endl;
-std::cout << std::endl;
+std::cout << "\n"<< std::endl;
+
 
 printing = solver.squareRootContinuedFractionsConvergenceSquares(convergences, num);
 
@@ -223,6 +223,14 @@ for (int i = 0; i < 10; i++)
 {
 	std::cout << "(P" << i << "^2 - "<< num.toString() << "* Q" << i << "^2) =  "<< printing[i].toString() << std::endl;
 
+
+}
+std::cout <<"\n" <<std::endl;
+
+convergences = solver.squreRootContinuedFractionConvergenceSquaresBCheck(num);
+for (int i = 0; i < 10; i++)
+{
+	std::cout << "(P" << i << "^2 - " << num.toString() << "* Q" << i << "^2) =  " << convergences[i].first.toString() << ".  B" << i + 1 << " = " << convergences[i].second.toString() << std::endl;
 
 }
 	std::string t = solver.readFileEncode("Text7.docx", "Text7encrypted8bytesv2");

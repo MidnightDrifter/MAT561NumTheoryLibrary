@@ -85,5 +85,6 @@ public:
 	 std::vector<SUPERLONG> squareRootContinuedFraction(SUPERLONG num);
 	 std::vector<std::pair<SUPERLONG,SUPERLONG>> squareRootContinuedFractionConvergences(std::vector<SUPERLONG> cf);
 	 std::vector<SUPERLONG> squareRootContinuedFractionsConvergenceSquares(std::vector<std::pair<SUPERLONG, SUPERLONG>> convergences, SUPERLONG num);
+	 std::vector<std::pair<SUPERLONG, SUPERLONG>> squreRootContinuedFractionConvergenceSquaresBCheck(SUPERLONG num);
 };
 
