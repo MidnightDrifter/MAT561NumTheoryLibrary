@@ -204,7 +204,7 @@ for (auto i : printing)
 }
 std::cout << std::endl;
 
-std::cout << "It repeats at step # " << printing.size() << std::endl;
+std::cout << "It repeats after step # " << printing.size() << std::endl;
 
 std::vector<std::pair<NumTheoryFormulas::SUPERLONG, NumTheoryFormulas::SUPERLONG>> convergences = solver.squareRootContinuedFractionConvergences(printing);
 
